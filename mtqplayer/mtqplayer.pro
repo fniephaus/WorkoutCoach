@@ -8,7 +8,6 @@ SOURCES += \
     plugins/system/Config.cpp \
     plugins/widgets/AngleSlider.cpp \
     plugins/widgets/BaseWidget.cpp \
-    plugins/widgets/DebugWidget.cpp \
     plugins/widgets/Design.cpp \
     plugins/widgets/EventConsole.cpp \
     plugins/widgets/GenericSvgButton.cpp \
@@ -28,7 +27,6 @@ HEADERS += \
     plugins/system/Config.h \
     plugins/widgets/AngleSlider.h \
     plugins/widgets/BaseWidget.h \
-    plugins/widgets/DebugWidget.h \
     plugins/widgets/Design.h \
     plugins/widgets/EventConsole.h \
     plugins/widgets/GenericSvgButton.h \
@@ -61,4 +59,4 @@ INCLUDEPATH += include
 
 LIBS += -L$${PWD}/lib -lMultiToeQt
 
-QMAKE_POST_LINK = cp $${PWD}/lib/libMultiToeQt.so $${OUT_PWD}/libMultiToeQt.so.1 && cp -r $${PWD}/lib/plugins $${OUT_PWD}/plugins && cp -r $${PWD}/data $${OUT_PWD}/data
+QMAKE_POST_LINK = ln -s $${PWD}/lib/libMultiToeQt.so $${OUT_PWD}/libMultiToeQt.so.1 && ln -s $${PWD}/lib/plugins $${OUT_PWD}/plugins && ln -s $${PWD}/data $${OUT_PWD}/data && ln -s $${PWD}/qml $${OUT_PWD}/qml && ln -s $${PWD}/config.ini $${OUT_PWD}/config.ini
