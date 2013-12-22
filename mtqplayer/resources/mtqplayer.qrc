@@ -6,5 +6,6 @@
         <file>qml/PanZoom.qml</file>
         <file>qml/PanZoomLoader.js</file>
         <file>config/mtqplayer.ini</file>
+        <file>svg/Feet.svg</file>
     </qresource>
 </RCC>

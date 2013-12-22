@@ -6,6 +6,7 @@ namespace design {
 	const QString baseDir("widgets/");
 
 	const QString widgetsSvgFile("://svg/Widgets.svg");
+	const QString feetSvgFile("://svg/Feet.svg");
 
 	//The labelFont
 	const QFont labelFont("Ubuntu Light", 32, QFont::Light);

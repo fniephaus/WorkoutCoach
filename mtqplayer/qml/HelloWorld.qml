@@ -11,8 +11,8 @@ Rectangle {
 	
     Label {
         id: helloLabel
-		x: 200
-		y: 400
+        x: 600
+        y: 500
         width: 650
         height: 160
 		text: "Hello World"
@@ -21,13 +21,13 @@ Rectangle {
 
     PushButton {
 		id: addNameButton
-		x: 850
-		y: 550
+        x: 250
+        y: 250
 		width: 400
 		height: 150
-		text: "Add my Name!"
+        text: "Workout Coach"
 		onPressed: { /* it's JavaScript in here! */
-			helloLabel.text += " from <your name>"
+            helloLabel.text = "Hello World from Workout Coach!"
 		}
     }
 

@@ -14,7 +14,7 @@ Rectangle {
     function pickRandomChild() {
         clickCount+=1
 
-        if(clickCount < 10)
+        if(clickCount < 5)
         {
             cornerChecked = false;
             currentCorner = Math.floor(Math.random() * 4);

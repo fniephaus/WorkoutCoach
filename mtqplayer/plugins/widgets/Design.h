@@ -10,6 +10,7 @@ namespace design {
 	extern const QString baseDir;
 
 	extern const QString widgetsSvgFile;
+	extern const QString feetSvgFile;
 
 	extern const QFont labelFont;
 	extern const QColor labelFontColor;

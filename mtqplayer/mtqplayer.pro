@@ -20,7 +20,9 @@ SOURCES += \
     plugins/widgets/Slider.cpp \
     plugins/widgets/TextField.cpp \
     plugins/widgets/TextInputWidget.cpp \
-    plugins/widgets/ToggleButton.cpp
+    plugins/widgets/ToggleButton.cpp \
+    plugins/widgets/RectangleButton.cpp \
+    plugins/widgets/FeetButton.cpp
 
 HEADERS += \
     plugins/input/Shortcut.h \
@@ -39,7 +41,9 @@ HEADERS += \
     plugins/widgets/Slider.h \
     plugins/widgets/TextField.h \
     plugins/widgets/TextInputWidget.h \
-    plugins/widgets/ToggleButton.h
+    plugins/widgets/ToggleButton.h \
+    plugins/widgets/RectangleButton.h \
+    plugins/widgets/FeetButton.h
 
 RESOURCES += \
     resources/mtqplayer.qrc
@@ -53,7 +57,10 @@ OTHER_FILES += \
     qml/WidgetDemo.qml \
     qml/Paint.qml \
     qml/HelloWorld.qml \
-    resources/config/mtqplayer.ini
+    resources/config/mtqplayer.ini \
+    qml/TapDebug.qml \
+    qml/SpeedCourt.qml \
+    resources/svg/Feet.svg
 
 INCLUDEPATH += include
 
