@@ -60,7 +60,8 @@ OTHER_FILES += \
     resources/config/mtqplayer.ini \
     qml/TapDebug.qml \
     qml/SpeedCourt.qml \
-    resources/svg/Feet.svg
+    resources/svg/Feet.svg \
+    qml/WarmUp.qml
 
 INCLUDEPATH += include
 
