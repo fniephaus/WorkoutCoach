@@ -54,7 +54,7 @@ Rectangle {
                 hudText.text = "Let's start with\nyour warm-up!";
                 hudText.visible = true;
                 hasStarted = true;
-                welcomeTimer.start();
+                instructionTimer.start();
             }
         }
     }
@@ -94,7 +94,16 @@ Rectangle {
         text: "Skip warm-up"
         visible: false
         onMtqTapDown: {
-            warmUpDone();
+            exitButton.visible = false;
+            corners.visible = false;
+            instructionTimer.stop();
+            getReadyTimer.stop();
+            startSpeedCourtTimer.stop();
+            endSpeedCourtTimer.stop();
+            hudImage.visible = false;
+            hudText.text = "You're lazy!"
+            hudText.visible = true;
+            startSelectionMenu.start();
         }
     }
 
@@ -172,15 +181,8 @@ Rectangle {
      }
 
     Timer {
-        id: welcomeTimer
-        interval: 1000
-        onTriggered: {
-            instructionTimer.start();
-        }
-    }
-    Timer {
         id: instructionTimer
-        interval: 5000
+        interval: 2000
         onTriggered: {
             hudText.visible = false;
             hudImage.source = "../resources/svg/InstructionsSpeedCourt.svg";

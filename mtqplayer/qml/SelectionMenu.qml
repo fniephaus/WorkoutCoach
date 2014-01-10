@@ -11,7 +11,7 @@ Rectangle {
     property var mainCategories: [["Make me sweat!", ""], ["Workouts", workoutCategories], ["Single Exercises", exerciseCategories], ["?", ""]]
     property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", ""]]
     property var exerciseCategories: [["Stretching", stretchingExercises], ["Cardio", cardioExercises], ["Flexibility", ""], ["Stamina", ""]]
-    property var stretchingExercises: [["Lunges", ""], ["B", ""], ["C", ""], ["D", ""]]
+    property var stretchingExercises: [["Lunges", "lunges"], ["B", ""], ["C", ""], ["D", ""]]
     property var cardioExercises: [["Sequence", ""], ["B", ""], ["C", ""], ["D", ""]]
 
     function startSelectionMenu() {
@@ -22,13 +22,23 @@ Rectangle {
     }
 
     function setFields(list, showBackButton){
-        topLeftText.text = list[0][0];
-        topRightText.text = list[1][0];
-        bottomLeftText.text = list[2][0];
-        bottomRightText.text = list[3][0];
+        if (typeof list === "string"){
+            if(list == "lunges"){
+                selectionMenu.visible = false;
+                exerciseLunges.visible = true;
+            }else{
+                selectionMenu.visible = false;
+                notImplemented.visible = true;
+            }
+        }else{
+            topLeftText.text = list[0][0];
+            topRightText.text = list[1][0];
+            bottomLeftText.text = list[2][0];
+            bottomRightText.text = list[3][0];
 
-        for (var i = 0; i < 4; i++) {
-            targetVariables[i] = list[i][1];
+            for (var i = 0; i < 4; i++) {
+                targetVariables[i] = list[i][1];
+            }
         }
     }
 
@@ -57,9 +67,7 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent;
                 onClicked: {
-                    if(targetVariables[0] != ""){
-                        setFields(targetVariables[0]);
-                    }
+                    setFields(targetVariables[0]);
                 }
             }
             Text {
@@ -84,11 +92,7 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent;
                 onClicked: {
-                    console.log(targetVariables);
-
-                    if(targetVariables[1]!=""){
-                        setFields(targetVariables[1]);
-                    }
+                    setFields(targetVariables[1]);
                 }
             }
             Text {
@@ -113,9 +117,7 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent;
                 onClicked: {
-                    if(targetVariables[2]!=""){
-                        setFields(targetVariables[2]);
-                    }
+                    setFields(targetVariables[2]);
                 }
             }
             Text {
@@ -140,9 +142,7 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent;
                 onClicked: {
-                    if(targetVariables[3]!=""){
-                        setFields(targetVariables[3]);
-                    }
+                    setFields(targetVariables[3]);
                 }
             }
             Text {

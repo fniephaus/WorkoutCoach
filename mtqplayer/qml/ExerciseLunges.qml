@@ -8,7 +8,7 @@ Rectangle {
     color: "#ff333333"
 
     property int exerciseCounter: 4
-    property int exerciseDuration: 4000
+    property int exerciseDuration: 4
     property bool leftFootTurn: true
     property bool leftDown: false
     property bool rightDown: false
@@ -42,7 +42,7 @@ Rectangle {
                 rightFoot.y = 400;
             }
         }else{
-            timerTimer.stop();
+            exerciseTimer.stop();
             timerText.visible = false;
 
             hudText.text = "Well done!";
@@ -54,28 +54,28 @@ Rectangle {
     }
 
     Text {
-            id: debug
-            x: 700
-            y: 200
-            width: 400
-            height: 200
-            horizontalAlignment: Text.AlignHCenter
-            text: "debug"
-            font.pointSize: 50
-            color: "white"
-            // visible: false
-        }
+        id: debug
+        x: 700
+        y: 200
+        width: 400
+        height: 200
+        horizontalAlignment: Text.AlignHCenter
+        text: "debug"
+        font.pointSize: 50
+        color: "white"
+        visible: false
+    }
 
     Text {
-            id: timerText
-            x: floor.width * 1/4
-            y: 500
-            width: 400
-            height: 200
-            horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 100
-            color: "white"
-        }
+        id: timerText
+        x: floor.width * 1/4
+        y: 500
+        width: 400
+        height: 200
+        horizontalAlignment: Text.AlignHCenter
+        font.pointSize: 100
+        color: "white"
+    }
     
     Rectangle {
         id: exerciseWrapper
@@ -98,7 +98,6 @@ Rectangle {
                 }
                 if(true || rightDown){
                     exerciseTimer.start();
-                    timerTimer.start();
                 }
 
                 debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
@@ -106,7 +105,6 @@ Rectangle {
             onMtqTapUp: {
                 leftDown = false;
                 exerciseTimer.stop();
-                timerTimer.stop();
 
                 debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
             }
@@ -123,7 +121,6 @@ Rectangle {
                     hasStarted = true;
                 }
                 if(true || leftDown){
-                    timerTimer.start();
                     exerciseTimer.start();
                 }
 
@@ -132,7 +129,6 @@ Rectangle {
             onMtqTapUp: {
                 rightDown = false;
                 exerciseTimer.stop();
-                timerTimer.stop();
 
                 debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
             }
@@ -141,28 +137,20 @@ Rectangle {
 
     Timer {
         id: exerciseTimer
-        interval: exerciseDuration
-        onTriggered: {
-            timerTimer.start();
-            exerciseLunges.switchFoot();
-        }
-    }
-
-    Timer {
-        id: timerTimer
         interval: 1000
-        property int value: 4
+        property int value: exerciseDuration + 1
         repeat: true
-        // triggeredOnStart: true
+        triggeredOnStart: true;
         onTriggered: {
             value--;
             if(value>0){
                 timerText.text = value + "s";
             }else{
+                exerciseLunges.switchFoot();
                 timerText.text = "Switch feet";
-                value = 4;
+                value = exerciseDuration + 1;
             }
-            timerTimer.start();
+            exerciseTimer.start();
         }
     }
 

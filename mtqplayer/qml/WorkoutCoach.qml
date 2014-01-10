@@ -10,7 +10,7 @@ BaseWidget {
 
     WarmUp {
         id: warmUp
-        visible: false
+        // visible: false
     }
         
     SelectionMenu {
@@ -20,7 +20,12 @@ BaseWidget {
 
     ExerciseLunges {
         id: exerciseLunges
-        // visible: false
+        visible: false
+    }
+
+    NotImplemented {
+        id: notImplemented
+        visible: false
     }
 
     Rectangle {
@@ -68,6 +73,7 @@ BaseWidget {
     }
 
     Rectangle {
+        visible: false
         id: moveRect
         color: "#ffffff"
         width: 1
