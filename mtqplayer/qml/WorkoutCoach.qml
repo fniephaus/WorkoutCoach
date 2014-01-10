@@ -5,15 +5,22 @@ BaseWidget {
     id: floor
     width: 4096
     height: 2400
-    // color: "#ff333333"
+
+    property int rotation: 0
 
     WarmUp {
         id: warmUp
+        visible: false
     }
-    
+        
     SelectionMenu {
         id: selectionMenu
         visible: false
+    }
+
+    ExerciseLunges {
+        id: exerciseLunges
+        // visible: false
     }
 
     Rectangle {
@@ -48,13 +55,11 @@ BaseWidget {
         }
         
     }
-
     
-    
-
     onMtqContactMove: {
-        hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(event.rotation/360*2*Math.PI);
-        hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(event.rotation/360*2*Math.PI);
-        hudArea.rotation = event.rotation;
+        // rotation += 2;
+        hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(rotation/360*2*Math.PI);
+        hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(rotation/360*2*Math.PI);
+        hudArea.rotation = rotation;
     }
 }

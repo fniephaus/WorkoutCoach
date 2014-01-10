@@ -6,6 +6,7 @@ Rectangle {
     width: 4096
     height: 2400
     color: "#ff333333"
+    
     property int clickCount: 0
     property int currentCorner: 0
     property bool cornerChecked: true
@@ -172,7 +173,7 @@ Rectangle {
 
     Timer {
         id: welcomeTimer
-        interval: 2000
+        interval: 1000
         onTriggered: {
             instructionTimer.start();
         }
@@ -182,7 +183,7 @@ Rectangle {
         interval: 5000
         onTriggered: {
             hudText.visible = false;
-            hudImage.source = "../resources/svg/SpeedCourtInstructions.svg";
+            hudImage.source = "../resources/svg/InstructionsSpeedCourt.svg";
             hudImage.visible = true;
             exitButton.visible = true;
 
