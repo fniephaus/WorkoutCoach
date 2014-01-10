@@ -22,7 +22,8 @@ SOURCES += \
     plugins/widgets/TextInputWidget.cpp \
     plugins/widgets/ToggleButton.cpp \
     plugins/widgets/RectangleButton.cpp \
-    plugins/widgets/FeetButton.cpp
+    plugins/widgets/FeetButton.cpp \
+    plugins/widgets/FootButton.cpp
 
 HEADERS += \
     plugins/input/Shortcut.h \
@@ -43,7 +44,8 @@ HEADERS += \
     plugins/widgets/TextInputWidget.h \
     plugins/widgets/ToggleButton.h \
     plugins/widgets/RectangleButton.h \
-    plugins/widgets/FeetButton.h
+    plugins/widgets/FeetButton.h \
+    plugins/widgets/FootButton.h
 
 RESOURCES += \
     resources/mtqplayer.qrc
