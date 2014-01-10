@@ -2,6 +2,8 @@
 
 using namespace mtq;
 
+MTQ_QML_REGISTER_PLUGIN(BaseWidget)
+
 BaseWidget::BaseWidget(QQuickItem *parent)
 	: QQuickPaintedItem(parent)
 {

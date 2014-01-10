@@ -12,6 +12,8 @@ class BaseWidget : public QQuickPaintedItem, public mtq::EventDispatcher
 	//We need to tell the Qt-Preprocessor
 	Q_OBJECT
 
+    MTQ_QML_PLUGIN_REGISTRATION(BaseWidget, "widgets")
+
 public:
 	BaseWidget(QQuickItem *parent = 0);
 	void paint(QPainter *painter);

@@ -61,7 +61,8 @@ OTHER_FILES += \
     qml/TapDebug.qml \
     qml/SpeedCourt.qml \
     resources/svg/Feet.svg \
-    qml/WarmUp.qml
+    qml/WarmUp.qml \
+    resources/svg/SpeedCourtInstructions.svg
 
 INCLUDEPATH += include
 

@@ -9,14 +9,16 @@ Rectangle {
     property var targetVariables: ["","","",""]
 
     property var mainCategories: [["Make me sweat!", ""], ["Workouts", workoutCategories], ["Single Exercises", exerciseCategories], ["?", ""]]
-    property var workoutCategories: [["Stretching", stretchingExercises], ["Cardio", cardioExercises], ["BodyAttack", ""], ["Random", ""]]
-    property var exerciseCategories: [["Flexibility", ""], ["Stamina", ""], ["C", ""], ["D", ""]]
+    property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", ""]]
+    property var exerciseCategories: [["Stretching", stretchingExercises], ["Cardio", cardioExercises], ["Flexibility", ""], ["Stamina", ""]]
     property var stretchingExercises: [["Lunges", ""], ["B", ""], ["C", ""], ["D", ""]]
     property var cardioExercises: [["Sequence", ""], ["B", ""], ["C", ""], ["D", ""]]
 
     function startSelectionMenu() {
         selectionMenu.visible = true;
-        lText.text = "Well done!\nNow make your selection!";
+        hudText.text = "Well done!\nNow make your selection!";
+        setFields(mainCategories, false);
+        selectionIntro.start();
     }
 
     function setFields(list, showBackButton){
@@ -36,9 +38,8 @@ Rectangle {
         y: 1000
         width: 400
         height: 400
-        onPressed: {
-            lText.visible = false;
-            setFields(mainCategories, false);
+        onMtqTapDown: {
+            // startSelectionMenu();
         }
     }
 
@@ -67,8 +68,9 @@ Rectangle {
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pointSize: 80
+                font.pointSize: 70
                 color: "white"
+                rotation: -45
             }
         }
 
@@ -95,8 +97,9 @@ Rectangle {
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pointSize: 80
+                font.pointSize: 70
                 color: "white"
+                rotation: 45
             }
         }
 
@@ -121,8 +124,9 @@ Rectangle {
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pointSize: 80
+                font.pointSize: 70
                 color: "white"
+                rotation: 225
             }
         }
 
@@ -147,9 +151,18 @@ Rectangle {
                 height: parent.height
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pointSize: 80
+                font.pointSize: 70
                 color: "white"
+                rotation: 135
             }
+        }
+    }
+
+    Timer {
+        id: selectionIntro
+        interval: 2000
+        onTriggered: {
+            hudText.visible = false;
         }
     }
 }

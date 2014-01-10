@@ -9,14 +9,20 @@ Rectangle {
     property int clickCount: 0
     property int currentCorner: 0
     property bool cornerChecked: true
-    property int warmUpTime: 5000;
+    property bool timeExpired: false
+    property int warmUpTime: 10000
+    property bool hasStarted: false
 
 
     function pickRandomChild() {
-        clickCount+=1
-        cornerChecked = false;
-        currentCorner = Math.floor(Math.random() * 4);
-        centerButton.color = corners.children[currentCorner].color;
+        clickCount++;
+        if(timeExpired){
+            warmUpDone();
+        }else{
+            cornerChecked = false;
+            currentCorner = Math.floor(Math.random() * 4);
+            centerButton.color = corners.children[currentCorner].color;
+        }
     }
 
     function correctCornerTapped() {
@@ -30,8 +36,10 @@ Rectangle {
         exitButton.visible = false;
         centerFeet.visible = true;
         
-        lText.text = "Warm up done!\nYour score: " + clickCount;
-        lText.visible = true;
+        hudImage.visible = false;
+        hudText.text = "Warm up done!\nYour score: " + clickCount;
+        hudText.visible = true;
+        startSelectionMenu.start();
     }
 
     FeetButton {
@@ -40,9 +48,13 @@ Rectangle {
         y: 1000
         width: 400
         height: 400
-        onPressed: {
-            lText.visible = true;
-            welcomeTimer.start()
+        onMtqTapDown: {
+            if(hasStarted == false){
+                hudText.text = "Let's start with\nyour warm-up!";
+                hudText.visible = true;
+                hasStarted = true;
+                welcomeTimer.start();
+            }
         }
     }
 
@@ -61,9 +73,9 @@ Rectangle {
             height: 400
             color: "#ff333333"
             visible: parent.visible
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
+                onMtqTapDown: {
                     if(cornerChecked){
                         warmUp.pickRandomChild();
                     }
@@ -80,7 +92,7 @@ Rectangle {
         width: 300
         text: "Skip warm-up"
         visible: false
-        onPressed: {
+        onMtqTapDown: {
             warmUpDone();
         }
     }
@@ -96,9 +108,9 @@ Rectangle {
             width: 800
             height: 600
             color: "red"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
+                onMtqTapDown: {
                     if(currentCorner == 0 ){
                         correctCornerTapped()
                     }
@@ -113,9 +125,9 @@ Rectangle {
             width: 800
             height: 600
             color: "blue"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
+                onMtqTapDown: {
                     if(currentCorner==1) {
                         correctCornerTapped()
                     }
@@ -130,9 +142,9 @@ Rectangle {
             width: 800
             height: 600
             color: "green"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
+                onMtqTapDown: {
                     if(currentCorner == 2) {
                         correctCornerTapped()
                     }
@@ -147,9 +159,9 @@ Rectangle {
             width: 800
             height: 600
             color: "yellow"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
+                onMtqTapDown: {
                     if(currentCorner == 3) {
                         correctCornerTapped()
                     }
@@ -167,18 +179,24 @@ Rectangle {
     }
     Timer {
         id: instructionTimer
-        interval: 2000
+        interval: 5000
         onTriggered: {
-            lText.text = "<insert Instructions here>";
-            getReadyTimer.start();
+            hudText.visible = false;
+            hudImage.source = "../resources/svg/SpeedCourtInstructions.svg";
+            hudImage.visible = true;
             exitButton.visible = true;
+
+            getReadyTimer.start();
         }
     }
     Timer {
         id: getReadyTimer
-        interval: 2000
+        interval: 5000
         onTriggered: {
-            lText.text = "Get ready!";
+            hudImage.visible = false;
+            hudText.text = "Get ready!";
+            hudText.visible = true;
+
             startSpeedCourtTimer.start();
         }
     }
@@ -186,7 +204,8 @@ Rectangle {
         id: startSpeedCourtTimer
         interval: 2000
         onTriggered: {
-            lText.visible = false;
+            hudText.visible = false;
+
             centerFeet.visible = false;
             centerButton.visible = true;
             corners.visible = true;
@@ -200,8 +219,7 @@ Rectangle {
         id: endSpeedCourtTimer
         interval: warmUpTime
         onTriggered: {
-            warmUpDone();
-            startSelectionMenu.start();
+            timeExpired = true;
         }
     }
 
@@ -209,7 +227,7 @@ Rectangle {
         id: startSelectionMenu
         interval: 2000
         onTriggered: {
-            parent.visible = false;
+            warmUp.visible = false;
             selectionMenu.startSelectionMenu();
         }
     }
