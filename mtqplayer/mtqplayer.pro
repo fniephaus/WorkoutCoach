@@ -64,7 +64,9 @@ OTHER_FILES += \
     qml/SpeedCourt.qml \
     resources/svg/Feet.svg \
     qml/WarmUp.qml \
-    resources/svg/SpeedCourtInstructions.svg
+    resources/svg/SpeedCourtInstructions.svg \
+    qml/ExerciseLunges.qml \
+    qml/WorkoutCoach.qml
 
 INCLUDEPATH += include
 

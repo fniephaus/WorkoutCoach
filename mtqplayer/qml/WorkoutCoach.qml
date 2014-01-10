@@ -58,8 +58,34 @@ BaseWidget {
     
     onMtqContactMove: {
         // rotation += 2;
-        hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(rotation/360*2*Math.PI);
-        hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(rotation/360*2*Math.PI);
-        hudArea.rotation = rotation;
+        if(event.foot == 'right'){
+            hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(rotation/360*2*Math.PI);
+            hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(rotation/360*2*Math.PI);
+            hudArea.rotation = rotation;
+        }
+        moveRect.x = event.mappedCenter.x;
+        moveRect.y = event.mappedCenter.y;
+    }
+
+    Rectangle {
+        id: moveRect
+        color: "#ffffff"
+        width: 1
+        height: 1
+        Rectangle {
+            color: "#ffffff"
+            x: -50
+            y: -2.5
+            width: 100
+            height: 5
+        }
+        Rectangle {
+            color: "#ffffff"
+            x: -2.5
+            y: -50
+            width: 5
+            height: 100
+        }
+
     }
 }
