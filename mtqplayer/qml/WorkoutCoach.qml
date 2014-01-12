@@ -73,7 +73,7 @@ BaseWidget {
     }
 
     Rectangle {
-        visible: false
+        visible: true
         id: moveRect
         color: "#ffffff"
         width: 1

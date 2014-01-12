@@ -21,17 +21,19 @@ Rectangle {
     }
 
 
-    FeetButton {
-        id: centerFeet
-        x: 1848
-        y: 1000
-        width: 400
-        height: 400
-        onMtqTapDown: {
-            notImplemented.visible = false;
-            selectionMenu.startSelectionMenu();
-        }
-    }
+    // FeetButton {
+    //     id: centerFeet
+    //     x: 1848
+    //     y: 1000
+    //     width: 400
+    //     height: 400
+    //     onMtqTapDown: {
+    //         if(notImplemented.visible){
+    //             notImplemented.visible = false;
+    //             selectionMenu.startMenu();
+    //         }
+    //     }
+    // }
 
 
     

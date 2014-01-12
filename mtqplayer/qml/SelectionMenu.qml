@@ -8,13 +8,14 @@ Rectangle {
     color: "#ff333333"
     property var targetVariables: ["","","",""]
 
-    property var mainCategories: [["Make me sweat!", ""], ["Workouts", workoutCategories], ["Single Exercises", exerciseCategories], ["?", ""]]
+    property var mainCategories: [["Make me sweat!", ""], ["Workouts", workoutCategories], ["Single Exercises", stretchingExercises], ["?", ""]]
     property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", ""]]
     property var exerciseCategories: [["Stretching", stretchingExercises], ["Cardio", cardioExercises], ["Flexibility", ""], ["Stamina", ""]]
     property var stretchingExercises: [["Lunges", "lunges"], ["B", ""], ["C", ""], ["D", ""]]
     property var cardioExercises: [["Sequence", ""], ["B", ""], ["C", ""], ["D", ""]]
 
-    function startSelectionMenu() {
+    function startMenu() {
+        console.log('startMenu called');
         selectionMenu.visible = true;
         hudText.text = "Well done!\nNow make your selection!";
         setFields(mainCategories, false);
@@ -29,6 +30,7 @@ Rectangle {
             }else{
                 selectionMenu.visible = false;
                 notImplemented.visible = true;
+                notImplementedTimer.start();
             }
         }else{
             topLeftText.text = list[0][0];
@@ -42,16 +44,18 @@ Rectangle {
         }
     }
 
-    FeetButton {
-        id: centerFeet
-        x: 1848
-        y: 1000
-        width: 400
-        height: 400
-        onMtqTapDown: {
-            // startSelectionMenu();
-        }
-    }
+    // FeetButton {
+    //     id: centerFeet
+    //     x: 1848
+    //     y: 1000
+    //     width: 400
+    //     height: 400
+    //     onMtqTapDown: {
+    //         // if(selectionMenu.visible){
+    //         //     startMenu();
+    //         // }
+    //     }
+    // }
 
     Item {
         id: corners
@@ -64,10 +68,12 @@ Rectangle {
             width: 800
             height: 600
             color: "#ff888888"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
-                    setFields(targetVariables[0]);
+                onMtqTapDown: {
+                    if(selectionMenu.visible){
+                        setFields(targetVariables[0]);
+                    }
                 }
             }
             Text {
@@ -89,10 +95,12 @@ Rectangle {
             width: 800
             height: 600
             color: "#ff888888"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
-                    setFields(targetVariables[1]);
+                onMtqTapDown: {
+                    if(selectionMenu.visible){
+                        setFields(targetVariables[1]);
+                    }
                 }
             }
             Text {
@@ -114,10 +122,12 @@ Rectangle {
             width: 800
             height: 600
             color: "#ff888888"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
-                    setFields(targetVariables[2]);
+                onMtqTapDown: {
+                    if(selectionMenu.visible){
+                        setFields(targetVariables[2]);
+                    }
                 }
             }
             Text {
@@ -139,10 +149,12 @@ Rectangle {
             width: 800
             height: 600
             color: "#ff888888"
-            MouseArea {
+            BaseWidget {
                 anchors.fill: parent;
-                onClicked: {
-                    setFields(targetVariables[3]);
+                onMtqTapDown: {
+                    if(selectionMenu.visible){
+                        setFields(targetVariables[3]);
+                    }
                 }
             }
             Text {
@@ -162,7 +174,18 @@ Rectangle {
         id: selectionIntro
         interval: 2000
         onTriggered: {
+            console.log('selectionIntro triggered');
             hudText.visible = false;
+        }
+    }
+
+    Timer {
+        id: notImplementedTimer
+        interval: 4000
+        onTriggered: {
+            console.log('notImplementedTimer triggered');
+            notImplemented.visible = false;
+            selectionMenu.startMenu();
         }
     }
 }

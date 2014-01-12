@@ -11,7 +11,7 @@ Rectangle {
     property int currentCorner: 0
     property bool cornerChecked: true
     property bool timeExpired: false
-    property int warmUpTime: 10000
+    property int warmUpTime: 15000
     property bool hasStarted: false
 
 
@@ -50,11 +50,12 @@ Rectangle {
         width: 400
         height: 400
         onMtqTapDown: {
-            if(hasStarted == false){
+            if(warmUp.visible && hasStarted == false){
                 hudText.text = "Let's start with\nyour warm-up!";
                 hudText.visible = true;
                 hasStarted = true;
                 instructionTimer.start();
+                centerFeet.visible = false;
             }
         }
     }
@@ -77,7 +78,7 @@ Rectangle {
             BaseWidget {
                 anchors.fill: parent;
                 onMtqTapDown: {
-                    if(cornerChecked){
+                    if(warmUp.visible && cornerChecked){
                         warmUp.pickRandomChild();
                     }
                 }
@@ -94,16 +95,18 @@ Rectangle {
         text: "Skip warm-up"
         visible: false
         onMtqTapDown: {
-            exitButton.visible = false;
-            corners.visible = false;
-            instructionTimer.stop();
-            getReadyTimer.stop();
-            startSpeedCourtTimer.stop();
-            endSpeedCourtTimer.stop();
-            hudImage.visible = false;
-            hudText.text = "You're lazy!"
-            hudText.visible = true;
-            startSelectionMenu.start();
+            if(warmUp.visible){
+                exitButton.visible = false;
+                corners.visible = false;
+                instructionTimer.stop();
+                getReadyTimer.stop();
+                startSpeedCourtTimer.stop();
+                endSpeedCourtTimer.stop();
+                hudImage.visible = false;
+                hudText.text = "You're lazy!"
+                hudText.visible = true;
+                startSelectionMenu.start();
+            }    
         }
     }
 
@@ -121,7 +124,7 @@ Rectangle {
             BaseWidget {
                 anchors.fill: parent;
                 onMtqTapDown: {
-                    if(currentCorner == 0 ){
+                    if(warmUp.visible && currentCorner == 0 ){
                         correctCornerTapped()
                     }
                 }
@@ -138,7 +141,7 @@ Rectangle {
             BaseWidget {
                 anchors.fill: parent;
                 onMtqTapDown: {
-                    if(currentCorner==1) {
+                    if(warmUp.visible && currentCorner==1) {
                         correctCornerTapped()
                     }
                 }
@@ -155,7 +158,7 @@ Rectangle {
             BaseWidget {
                 anchors.fill: parent;
                 onMtqTapDown: {
-                    if(currentCorner == 2) {
+                    if(warmUp.visible && currentCorner == 2) {
                         correctCornerTapped()
                     }
                 }
@@ -172,7 +175,7 @@ Rectangle {
             BaseWidget {
                 anchors.fill: parent;
                 onMtqTapDown: {
-                    if(currentCorner == 3) {
+                    if(warmUp.visible && currentCorner == 3) {
                         correctCornerTapped()
                     }
                 }
@@ -184,6 +187,7 @@ Rectangle {
         id: instructionTimer
         interval: 2000
         onTriggered: {
+            console.log('instructionTimer triggered');
             hudText.visible = false;
             hudImage.source = "../resources/svg/InstructionsSpeedCourt.svg";
             hudImage.visible = true;
@@ -196,6 +200,7 @@ Rectangle {
         id: getReadyTimer
         interval: 5000
         onTriggered: {
+            console.log('getReadyTimer triggered');
             hudImage.visible = false;
             hudText.text = "Get ready!";
             hudText.visible = true;
@@ -207,6 +212,7 @@ Rectangle {
         id: startSpeedCourtTimer
         interval: 2000
         onTriggered: {
+            console.log('startSpeedCourtTimer triggered');
             hudText.visible = false;
 
             centerFeet.visible = false;
@@ -222,6 +228,7 @@ Rectangle {
         id: endSpeedCourtTimer
         interval: warmUpTime
         onTriggered: {
+            console.log('endSpeedCourtTimer triggered');
             timeExpired = true;
         }
     }
@@ -230,8 +237,9 @@ Rectangle {
         id: startSelectionMenu
         interval: 2000
         onTriggered: {
+            console.log('startSelectionMenu triggered');
             warmUp.visible = false;
-            selectionMenu.startSelectionMenu();
+            selectionMenu.startMenu();
         }
     }
 
