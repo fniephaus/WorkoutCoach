@@ -11,8 +11,9 @@ Rectangle {
     property int currentCorner: 0
     property bool cornerChecked: true
     property bool timeExpired: false
-    property int warmUpTime: 15000
+    property int warmUpTime: 20000
     property bool hasStarted: false
+    property bool training: true
 
 
     function pickRandomChild() {
@@ -34,7 +35,6 @@ Rectangle {
     function warmUpDone() {
         corners.visible = false;
         centerButton.visible = false;
-        exitButton.visible = false;
         centerFeet.visible = true;
         
         hudImage.visible = false;
@@ -49,36 +49,72 @@ Rectangle {
         y: 1000
         width: 400
         height: 400
-        onMtqTapDown: {
+        onMtqContactDown: {
             if(warmUp.visible && hasStarted == false){
                 hudText.text = "Let's start with\nyour warm-up!";
                 hudText.visible = true;
                 hasStarted = true;
-                instructionTimer.start();
+                startInstructionsTimer.start();
                 centerFeet.visible = false;
             }
         }
     }
 
+    Image {
+        id: redArrow
+        width: 800
+        height: 400
+        x: 700
+        y: 480
+        sourceSize.width: 800
+        sourceSize.height: 600
+        visible: false
+        rotation: 210
+        source: "../resources/svg/WhiteArrow.svg"
+    }
+
+
+    Image {
+        id: blueArrow
+        width: 800
+        height: 400
+        x: 2550
+        y: 480
+        sourceSize.width: 800
+        sourceSize.height: 600
+        visible: false
+        rotation: 330
+        source: "../resources/svg/WhiteArrow.svg"
+    }
+
     Rectangle {
         id: centerButton
-        x: 1548
-        y: 700
-        width: 1000
-        height: 1000
+        x: 1748
+        y: 900
+        width: 600
+        height: 600
         visible: false
-        Rectangle {
-            id: innerRect
-            x: 300
-            y: 300
-            width: 400
-            height: 400
-            color: "#ff333333"
-            visible: parent.visible
-            BaseWidget {
-                anchors.fill: parent;
-                onMtqTapDown: {
-                    if(warmUp.visible && cornerChecked){
+        radius: width * 0.5
+        BaseWidget {
+            anchors.fill: parent;
+            onMtqContactDown: {
+                if(warmUp.visible && cornerChecked && !getReadyTimer.running){
+                    if(training){
+                        if(redArrow.visible){
+                            redArrow.visible = false;
+                            blueArrow.visible = true;
+                            centerButton.color = "blue";
+                            currentCorner = 1;
+                            cornerChecked = false;
+                        } else {
+                            blueArrow.visible = false;
+                            training = false;
+                            hudImage.visible = false;
+                            hudText.text = "Now try to repeat this\nas often as you can...";
+                            hudText.visible = true;
+                            getReadyTimer.start();
+                        }
+                    } else {
                         warmUp.pickRandomChild();
                     }
                 }
@@ -87,28 +123,6 @@ Rectangle {
 
     }
 
-    PushButton {
-        id: exitButton
-        x: 1898
-        y: 2000
-        width: 300
-        text: "Skip warm-up"
-        visible: false
-        onMtqTapDown: {
-            if(warmUp.visible){
-                exitButton.visible = false;
-                corners.visible = false;
-                instructionTimer.stop();
-                getReadyTimer.stop();
-                startSpeedCourtTimer.stop();
-                endSpeedCourtTimer.stop();
-                hudImage.visible = false;
-                hudText.text = "You're lazy!"
-                hudText.visible = true;
-                startSelectionMenu.start();
-            }    
-        }
-    }
 
     Item {
         id: corners
@@ -116,15 +130,19 @@ Rectangle {
         
         Rectangle {
             id: topLeft
-            x: 0
-            y: 0
-            width: 800
-            height: 600
+            x: -800
+            y: -800
+            width: 1600
+            height: 1600
             color: "red"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(warmUp.visible && currentCorner == 0 ){
+                        if(training){
+                            redArrow.rotation += 180;
+                        }
                         correctCornerTapped()
                     }
                 }
@@ -134,14 +152,18 @@ Rectangle {
         Rectangle {
             id: topRight
             x: 3296
-            y: 0
-            width: 800
-            height: 600
+            y: -800
+            width: 1600
+            height: 1600
             color: "blue"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(warmUp.visible && currentCorner==1) {
+                        if(training){
+                            blueArrow.rotation += 180;
+                        }
                         correctCornerTapped()
                     }
                 }
@@ -150,14 +172,15 @@ Rectangle {
 
         Rectangle {
             id: bottomLeft
-            x: 0
-            y: 1800
-            width: 800
-            height: 600
+            x: -800
+            y: 1600
+            width: 1600
+            height: 1600
             color: "green"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(warmUp.visible && currentCorner == 2) {
                         correctCornerTapped()
                     }
@@ -168,13 +191,14 @@ Rectangle {
         Rectangle {
             id: bottomRight
             x: 3296
-            y: 1800
-            width: 800
-            height: 600
+            y: 1600
+            width: 1600
+            height: 1600
             color: "yellow"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(warmUp.visible && currentCorner == 3) {
                         correctCornerTapped()
                     }
@@ -184,30 +208,31 @@ Rectangle {
      }
 
     Timer {
-        id: instructionTimer
-        interval: 2000
+        id: startInstructionsTimer
+        interval: 1000
         onTriggered: {
-            console.log('instructionTimer triggered');
+            console.log('startInstructionsTimer triggered');
             hudText.visible = false;
-            hudImage.source = "../resources/svg/InstructionsSpeedCourt.svg";
-            hudImage.visible = true;
-            exitButton.visible = true;
-
-            getReadyTimer.start();
+            centerFeet.visible = false;
+            centerButton.visible = true;
+            corners.visible = true;
+            redArrow.visible = true;
+            centerButton.color = "red";
+            currentCorner = 0;
+            cornerChecked = false;
         }
     }
+
     Timer {
         id: getReadyTimer
-        interval: 5000
+        interval: 2000
         onTriggered: {
-            console.log('getReadyTimer triggered');
-            hudImage.visible = false;
-            hudText.text = "Get ready!";
-            hudText.visible = true;
-
-            startSpeedCourtTimer.start();
+            console.log('startInstructionsTimer triggered');
+            hudText.text = "Get ready!"
+            startSpeedCourtTimer.start()
         }
     }
+
     Timer {
         id: startSpeedCourtTimer
         interval: 2000

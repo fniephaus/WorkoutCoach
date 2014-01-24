@@ -90,21 +90,21 @@ Rectangle {
             type: 'left'
             x: exerciseWrapper.width/2 - leftFoot.width/2
             y: 400
-            onMtqTapDown: {
+            onMtqContactDown: {
                 if(exerciseLunges.visible){
                     leftDown = true;
-                    if(!hasStarted && (true || rightDown)){
+                    if(!hasStarted && rightDown){
                         exerciseLunges.startLunges();
                         hasStarted = true;
                     }
-                    if(true || rightDown){
+                    if(rightDown){
                         exerciseTimer.start();
                     }
 
                     debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
                 }
             }
-            onMtqTapUp: {
+            onMtqContactUp: {
                 if(exerciseLunges.visible){
                     leftDown = false;
                     exerciseTimer.stop();
@@ -118,21 +118,21 @@ Rectangle {
             type: 'right'
             x: exerciseWrapper.width/2 + rightFoot.width/2 + 20
             y: 1600
-            onMtqTapDown: {
+            onMtqContactDown: {
                 if(exerciseLunges.visible){
                     rightDown = true;
-                    if(!hasStarted && (true || leftDown)){
+                    if(!hasStarted && leftDown){
                         exerciseLunges.startLunges();
                         hasStarted = true;
                     }
-                    if(true || leftDown){
+                    if(leftDown){
                         exerciseTimer.start();
                     }
 
                     debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
                 }
             }
-            onMtqTapUp: {
+            onMtqContactUp: {
                 if(exerciseLunges.visible){
                     rightDown = false;
                     exerciseTimer.stop();

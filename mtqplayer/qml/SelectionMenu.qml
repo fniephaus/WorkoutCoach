@@ -50,7 +50,7 @@ Rectangle {
     //     y: 1000
     //     width: 400
     //     height: 400
-    //     onMtqTapDown: {
+    //     onMtqContactDown: {
     //         // if(selectionMenu.visible){
     //         //     startMenu();
     //         // }
@@ -63,14 +63,15 @@ Rectangle {
 
         Rectangle {
             id: topLeft
-            x: 0
-            y: 0
-            width: 800
-            height: 600
+            x: -800
+            y: -800
+            width: 1600
+            height: 1600
             color: "#ff888888"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(selectionMenu.visible){
                         setFields(targetVariables[0]);
                     }
@@ -80,6 +81,8 @@ Rectangle {
                 id: topLeftText
                 width: parent.width
                 height: parent.height
+                x: parent.width/4
+                y: parent.height/4
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 70
@@ -91,13 +94,14 @@ Rectangle {
         Rectangle {
             id: topRight
             x: 3296
-            y: 0
-            width: 800
-            height: 600
+            y: -800
+            width: 1600
+            height: 1600
             color: "#ff888888"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(selectionMenu.visible){
                         setFields(targetVariables[1]);
                     }
@@ -107,6 +111,8 @@ Rectangle {
                 id: topRightText
                 width: parent.width
                 height: parent.height
+                x: -parent.width/4
+                y: parent.height/4
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 70
@@ -117,14 +123,15 @@ Rectangle {
 
         Rectangle {
             id: bottomLeft
-            x: 0
-            y: 1800
-            width: 800
-            height: 600
+            x: -800
+            y: 1600
+            width: 1600
+            height: 1600
             color: "#ff888888"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(selectionMenu.visible){
                         setFields(targetVariables[2]);
                     }
@@ -134,6 +141,8 @@ Rectangle {
                 id: bottomLeftText
                 width: parent.width
                 height: parent.height
+                x: parent.width/4
+                y: -parent.height/4
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 70
@@ -145,13 +154,14 @@ Rectangle {
         Rectangle {
             id: bottomRight
             x: 3296
-            y: 1800
-            width: 800
-            height: 600
+            y: 1600
+            width: 1600
+            height: 1600
             color: "#ff888888"
+            radius: width * 0.5
             BaseWidget {
                 anchors.fill: parent;
-                onMtqTapDown: {
+                onMtqContactDown: {
                     if(selectionMenu.visible){
                         setFields(targetVariables[3]);
                     }
@@ -161,6 +171,8 @@ Rectangle {
                 id: bottomRightText
                 width: parent.width
                 height: parent.height
+                x: -parent.width/4
+                y: -parent.height/4
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pointSize: 70
