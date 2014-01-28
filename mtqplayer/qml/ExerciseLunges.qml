@@ -7,43 +7,50 @@ Rectangle {
     height: 2400
     color: "#ff333333"
 
-    property int exerciseCounter: 4
-    property int exerciseDuration: 4
+    property int exerciseCounter: 8
+    property int exerciseDuration: 8
     property bool leftFootTurn: true
     property bool leftDown: false
     property bool rightDown: false
     property bool hasStarted: false
+    property bool debug: true
 
 
     function startLunges(){
         exerciseLunges.visible = true;
-        timerText.text = "4s";
-        hudImage.source = "../resources/svg/InstructionsLunges.svg";
-        hudImage.visible = true;
-        hudImage.width = 900;
-        hudImage.height = 454;
-        hudImage.rotation = 30;
-        hudImage.x = leftFoot.x + hudImage.height/2;
+
+        rightTextLunges.text = exerciseDuration + "s";
+        rightTextLunges.visible = true;
+
+    }
+
+    function exerciseInProgess(){
+        return exerciseCounter>0;
     }
 
 
     function switchFoot(){
         exerciseCounter--;
 
-        hudImage.visible = false;
+        instructionsLunges.visible = false;
 
-        if(exerciseCounter>0){
+        if(exerciseInProgess()){
             leftFootTurn = !leftFootTurn;
             if (leftFootTurn){
-                leftFoot.y = 400;
-                rightFoot.y = 1600;
+                rightFoot.state = "back";
+                leftFoot.state = "front";
             }else{
-                leftFoot.y = 1600;
-                rightFoot.y = 400;
+                rightFoot.state = "front";
+                leftFoot.state = "back";
             }
+
+            rightTextLunges.visible = !rightTextLunges.visible;
+            leftTextLunges.visible = !leftTextLunges.visible;
         }else{
             exerciseTimer.stop();
-            timerText.visible = false;
+
+
+            rightTextLunges.visible = leftTextLunges.visible = false;
 
             hudText.text = "Well done!";
             hudText.visible = true;
@@ -53,28 +60,42 @@ Rectangle {
         }
     }
 
-    Text {
-        id: debug
-        x: 700
-        y: 200
-        width: 400
-        height: 200
-        horizontalAlignment: Text.AlignHCenter
-        text: "debug"
-        font.pointSize: 50
-        color: "white"
-        visible: false
+    Image {
+        id: instructionsLunges
+        source: "../resources/svg/InstructionsLunges.svg"
+        width: 900
+        height: 454
+        y: parent.height/4
+        x: parent.width/2 + width/2 + 50
+        rotation: 30
     }
 
     Text {
-        id: timerText
-        x: floor.width * 1/4
-        y: 500
-        width: 400
+        id: rightTextLunges
+        x: parent.width/2 + width/2 + 200
+        y: parent.height/4 - 150
+        width: 200
         height: 200
         horizontalAlignment: Text.AlignHCenter
+        visible: false
         font.pointSize: 100
         color: "white"
+        text: "4s"
+        rotation: 30
+    }
+
+    Text {
+        id: leftTextLunges
+        x: parent.width/2 - width/2 - 200
+        y: parent.height/4 - 150
+        width: 200
+        height: 200
+        horizontalAlignment: Text.AlignHCenter
+        visible: false
+        font.pointSize: 100
+        color: "white"
+        text: "3s"
+        rotation: -30
     }
     
     Rectangle {
@@ -93,24 +114,33 @@ Rectangle {
             onMtqContactDown: {
                 if(exerciseLunges.visible){
                     leftDown = true;
-                    if(!hasStarted && rightDown){
+                    if(!hasStarted && (debug || rightDown)){
                         exerciseLunges.startLunges();
                         hasStarted = true;
                     }
-                    if(rightDown){
+                    if((debug || rightDown)){
                         exerciseTimer.start();
                     }
 
-                    debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
                 }
             }
             onMtqContactUp: {
                 if(exerciseLunges.visible){
                     leftDown = false;
                     exerciseTimer.stop();
-
-                    debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
                 }
+            }
+
+            states: [State {
+                name: "front"
+                PropertyChanges { target: leftFoot; y: 400; duration: 2000; }
+            },State {
+                name: "back"
+                PropertyChanges { target: leftFoot; y: 1600; duration: 2000; }
+            }]
+
+            transitions: Transition {
+                NumberAnimation { properties: "y"; easing.type: Easing.InOutQuad }
             }
         }
         FootButton {
@@ -121,24 +151,34 @@ Rectangle {
             onMtqContactDown: {
                 if(exerciseLunges.visible){
                     rightDown = true;
-                    if(!hasStarted && leftDown){
+                    if(!hasStarted && (debug || leftDown)){
                         exerciseLunges.startLunges();
                         hasStarted = true;
                     }
-                    if(leftDown){
+                    if((debug || leftDown)){
                         exerciseTimer.start();
                     }
 
-                    debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
                 }
             }
+
             onMtqContactUp: {
                 if(exerciseLunges.visible){
                     rightDown = false;
                     exerciseTimer.stop();
-
-                    debug.text = "rightDown: " + rightDown + " - leftDown: " + leftDown;
                 }
+            }
+
+            states: [State {
+                name: "front"
+                PropertyChanges { target: rightFoot; y: 400; duration: 2000; }
+            },State {
+                name: "back"
+                PropertyChanges { target: rightFoot; y: 1600; duration: 2000; }
+            }]
+
+            transitions: Transition {
+                NumberAnimation { properties: "y"; easing.type: Easing.InOutQuad }
             }
         }
     }
@@ -150,16 +190,20 @@ Rectangle {
         repeat: true
         triggeredOnStart: true;
         onTriggered: {
-            console.log('exerciseTimer triggered');
-            value--;
-            if(value>0){
-                timerText.text = value + "s";
-            }else{
-                exerciseLunges.switchFoot();
-                timerText.text = "Switch feet";
-                value = exerciseDuration + 1;
+            if(exerciseInProgess()){
+                console.log('exerciseTimer triggered');
+                value--;
+                if(value>0){
+                    rightTextLunges.text = value + "s";
+                    leftTextLunges.text = value + "s";
+                }else{
+                    rightTextLunges.text = "Switch!";
+                    leftTextLunges.text = "Switch!";
+                    value = exerciseDuration + 1;
+                    exerciseLunges.switchFoot();
+                }
+                exerciseTimer.start();
             }
-            exerciseTimer.start();
         }
     }
 
