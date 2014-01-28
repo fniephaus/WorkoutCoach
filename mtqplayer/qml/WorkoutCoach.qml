@@ -7,10 +7,12 @@ BaseWidget {
     height: 2400
 
     property int rotation: 0
+    property int offsetRotation: 0
+    property var primaryFoot: 'right'
 
     WarmUp {
         id: warmUp
-        // visible: false
+        //visible: false
     }
         
     SelectionMenu {
@@ -39,7 +41,7 @@ BaseWidget {
         Text {
             id: hudText
             x: 700
-            y: 200
+            y: 0
             width: 400
             height: 200
             horizontalAlignment: Text.AlignHCenter
@@ -50,10 +52,10 @@ BaseWidget {
 
         Image {
             id: hudImage
-            width: 2000;
-            height: 1500;
-            x: parent.width/2-width/2;
-            y: parent.height/2-height/3;
+            width: 800;
+            height: 600;
+            x: 500;
+            y: 200;
             sourceSize.width: 800;
             sourceSize.height: 600;
             visible: false;
@@ -63,10 +65,10 @@ BaseWidget {
     
     onMtqContactMove: {
         // rotation += 2;
-        if(event.foot == 'right'){
-            hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(event.rotation);
-            hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(event.rotation);
-            hudArea.rotation = event.rotation;
+        if(event.foot == primaryFoot){
+            hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(event.rotation + offsetRotation/360 * 2*Math.PI);
+            hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(event.rotation + offsetRotation/360 * 2*Math.PI);
+            hudArea.rotation = event.rotation + offsetRotation;
         }
         moveRect.x = event.mappedCenter.x;
         moveRect.y = event.mappedCenter.y;

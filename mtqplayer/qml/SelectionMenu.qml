@@ -44,18 +44,6 @@ Rectangle {
         }
     }
 
-    // FeetButton {
-    //     id: centerFeet
-    //     x: 1848
-    //     y: 1000
-    //     width: 400
-    //     height: 400
-    //     onMtqContactDown: {
-    //         // if(selectionMenu.visible){
-    //         //     startMenu();
-    //         // }
-    //     }
-    // }
 
     Item {
         id: corners
