@@ -16,6 +16,7 @@ Rectangle {
     property bool hasStarted: false
     property bool running: false
     property bool training: true
+    property var colors: shuffle(["red", "blue", "green", "yellow"])
 
 
     function pickRandomChild() {
@@ -25,7 +26,7 @@ Rectangle {
         }else{
             cornerChecked = false;
             currentCorner = Math.floor(Math.random() * 4);
-            centerButton.state = corners.children[currentCorner].targetState;
+            centerButton.state = warmUp.colors[currentCorner];
         }
     }
 
@@ -86,7 +87,7 @@ Rectangle {
                         if(redArrow.visible){
                             redArrow.visible = false;
                             blueArrow.visible = true;
-                            centerButton.state = "blue";
+                            centerButton.state = warmUp.colors[1];
                             currentCorner = 1;
                             cornerChecked = false;
                         } else {
@@ -135,18 +136,18 @@ Rectangle {
         
         Rectangle {
             id: topLeft
+            property int cornerID: 0
             x: -800
             y: -800
             width: 1600
             height: 1600
-            color: "red"
+            color: warmUp.colors[cornerID]
             radius: width * 0.5
-            property var targetState: "red"
 
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
-                    if(warmUp.visible && currentCorner == 0 ){
+                    if(warmUp.visible && currentCorner == topLeft.cornerID ){
                         if(training){
                             redArrow.rotation += 180;
                         }
@@ -158,18 +159,18 @@ Rectangle {
 
         Rectangle {
             id: topRight
+            property int cornerID: 1
             x: 3296
             y: -800
             width: 1600
             height: 1600
-            color: "blue"
+            color: warmUp.colors[cornerID]
             radius: width * 0.5
-            property var targetState: "blue"
 
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
-                    if(warmUp.visible && currentCorner==1) {
+                    if(warmUp.visible && currentCorner == topRight.cornerID) {
                         if(training){
                             blueArrow.rotation += 180;
                         }
@@ -181,18 +182,18 @@ Rectangle {
 
         Rectangle {
             id: bottomLeft
+            property int cornerID: 2
             x: -800
             y: 1600
             width: 1600
             height: 1600
-            color: "green"
+            color: warmUp.colors[cornerID]
             radius: width * 0.5
-            property var targetState: "green"
             
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
-                    if(warmUp.visible && currentCorner == 2) {
+                    if(warmUp.visible && currentCorner == bottomLeft.cornerID) {
                         correctCornerTapped()
                     }
                 }
@@ -201,19 +202,18 @@ Rectangle {
 
         Rectangle {
             id: bottomRight
+            property int cornerID: 3
             x: 3296
             y: 1600
             width: 1600
             height: 1600
-            color: "yellow"
+            color: warmUp.colors[cornerID]
             radius: width * 0.5
-            property var targetState: "yellow"
-
             
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
-                    if(warmUp.visible && currentCorner == 3) {
+                    if(warmUp.visible && currentCorner == bottomRight.cornerID) {
                         correctCornerTapped()
                     }
                 }
@@ -235,8 +235,8 @@ Rectangle {
             hudText.text = "Let's start with\nyour warm-up!";
             hudText.visible = true;
             hasStarted = true;
-            callDelayed(function(){startTraining()});
             centerFeet.visible = false;
+            callDelayed(function(){startTraining()});
         }
     }
 
@@ -247,7 +247,7 @@ Rectangle {
         centerButton.visible = true;
         corners.visible = true;
         redArrow.visible = true;
-        centerButton.state = "red";
+        centerButton.state = warmUp.colors[0];
         currentCorner = 0;
         cornerChecked = false;
     }
@@ -255,7 +255,6 @@ Rectangle {
     function endTraining(){
         blueArrow.visible = false;
         training = false;
-        hudImage.visible = false;
         hudText.text = "Now try to repeat this\nas often as you can...";
         hudText.visible = true;
         callDelayed(function(){getReady()});
@@ -268,6 +267,7 @@ Rectangle {
     }
 
     function startSpeedCourt(){
+        timeExpired = false;
         console.log('startSpeedCourt called');
         hudText.visible = false;
 
@@ -292,7 +292,6 @@ Rectangle {
         corners.visible = false;
         centerButton.visible = false;
         
-        hudImage.visible = false;
         hudText.text = "Warm up done!\nYour score: " + clickCount;
         hudText.visible = true;
         callDelayed(function(){startSelectionMenu()}, 2000);
@@ -313,6 +312,29 @@ Rectangle {
             warmUpTimer.start();
             console.log("Timer started (interval: " + interval + ")");
         }
+    }
+
+    //helpers
+    function shuffle(array) {
+        var currentIndex = array.length
+        , temporaryValue
+        , randomIndex
+        ;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
     }
     
 }
