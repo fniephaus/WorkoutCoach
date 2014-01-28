@@ -7,12 +7,14 @@ Rectangle {
     height: 2400
     color: "#ff333333"
     
+    property int step: 0
     property int clickCount: 0
     property int currentCorner: 0
     property bool cornerChecked: true
     property bool timeExpired: false
     property int warmUpTime: 20000
     property bool hasStarted: false
+    property bool running: false
     property bool training: true
 
 
@@ -23,24 +25,13 @@ Rectangle {
         }else{
             cornerChecked = false;
             currentCorner = Math.floor(Math.random() * 4);
-            centerButton.color = corners.children[currentCorner].color;
+            centerButton.state = corners.children[currentCorner].targetState;
         }
     }
 
     function correctCornerTapped() {
         cornerChecked = true;
-        centerButton.color = "white"
-    }
-
-    function warmUpDone() {
-        corners.visible = false;
-        centerButton.visible = false;
-        centerFeet.visible = true;
-        
-        hudImage.visible = false;
-        hudText.text = "Warm up done!\nYour score: " + clickCount;
-        hudText.visible = true;
-        startSelectionMenu.start();
+        centerButton.state = "white"
     }
 
     FeetButton {
@@ -49,15 +40,7 @@ Rectangle {
         y: 1000
         width: 400
         height: 400
-        onMtqContactDown: {
-            if(warmUp.visible && hasStarted == false){
-                hudText.text = "Let's start with\nyour warm-up!";
-                hudText.visible = true;
-                hasStarted = true;
-                startInstructionsTimer.start();
-                centerFeet.visible = false;
-            }
-        }
+        onMtqContactDown: startWarmUp()
     }
 
     Image {
@@ -98,27 +81,49 @@ Rectangle {
         BaseWidget {
             anchors.fill: parent;
             onMtqContactDown: {
-                if(warmUp.visible && cornerChecked && !getReadyTimer.running){
+                if(warmUp.visible && cornerChecked && (warmUp.running || !warmUpTimer.running)){
                     if(training){
                         if(redArrow.visible){
                             redArrow.visible = false;
                             blueArrow.visible = true;
-                            centerButton.color = "blue";
+                            centerButton.state = "blue";
                             currentCorner = 1;
                             cornerChecked = false;
                         } else {
-                            blueArrow.visible = false;
-                            training = false;
-                            hudImage.visible = false;
-                            hudText.text = "Now try to repeat this\nas often as you can...";
-                            hudText.visible = true;
-                            getReadyTimer.start();
+                            endTraining();
                         }
                     } else {
                         warmUp.pickRandomChild();
                     }
                 }
             }
+        }
+
+        states: [
+            State {
+                name: "white"
+                PropertyChanges { target: centerButton; color: "white" }
+            },
+            State {
+                name: "red"
+                PropertyChanges { target: centerButton; color: "red" }
+            },
+            State {
+                name: "green"
+                PropertyChanges { target: centerButton; color: "green" }
+            },
+            State {
+                name: "blue"
+                PropertyChanges { target: centerButton; color: "blue" }
+            },
+            State {
+                name: "yellow"
+                PropertyChanges { target: centerButton; color: "yellow" }
+            }
+        ]
+
+        transitions: Transition {
+            ColorAnimation { duration: 100 }
         }
 
     }
@@ -136,6 +141,8 @@ Rectangle {
             height: 1600
             color: "red"
             radius: width * 0.5
+            property var targetState: "red"
+
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
@@ -157,6 +164,8 @@ Rectangle {
             height: 1600
             color: "blue"
             radius: width * 0.5
+            property var targetState: "blue"
+
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
@@ -178,6 +187,8 @@ Rectangle {
             height: 1600
             color: "green"
             radius: width * 0.5
+            property var targetState: "green"
+            
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
@@ -196,6 +207,9 @@ Rectangle {
             height: 1600
             color: "yellow"
             radius: width * 0.5
+            property var targetState: "yellow"
+
+            
             BaseWidget {
                 anchors.fill: parent;
                 onMtqContactDown: {
@@ -208,66 +222,98 @@ Rectangle {
      }
 
     Timer {
-        id: startInstructionsTimer
+        id: warmUpTimer
+        property var callback: function(){console.log("emtpy callback")}
         interval: 1000
         onTriggered: {
-            console.log('startInstructionsTimer triggered');
-            hudText.visible = false;
+            callback();
+        }
+    }
+
+    function startWarmUp(){
+        if(warmUp.visible && hasStarted == false){
+            hudText.text = "Let's start with\nyour warm-up!";
+            hudText.visible = true;
+            hasStarted = true;
+            callDelayed(function(){startTraining()});
             centerFeet.visible = false;
-            centerButton.visible = true;
-            corners.visible = true;
-            redArrow.visible = true;
-            centerButton.color = "red";
-            currentCorner = 0;
-            cornerChecked = false;
         }
     }
 
-    Timer {
-        id: getReadyTimer
-        interval: 2000
-        onTriggered: {
-            console.log('startInstructionsTimer triggered');
-            hudText.text = "Get ready!"
-            startSpeedCourtTimer.start()
-        }
+    function startTraining(){
+        console.log('startInstructions called');
+        hudText.visible = false;
+        centerFeet.visible = false;
+        centerButton.visible = true;
+        corners.visible = true;
+        redArrow.visible = true;
+        centerButton.state = "red";
+        currentCorner = 0;
+        cornerChecked = false;
     }
 
-    Timer {
-        id: startSpeedCourtTimer
-        interval: 2000
-        onTriggered: {
-            console.log('startSpeedCourtTimer triggered');
-            hudText.visible = false;
-
-            centerFeet.visible = false;
-            centerButton.visible = true;
-            corners.visible = true;
-            warmUp.pickRandomChild();
-            //reset clickCount
-            clickCount = 0;
-            endSpeedCourtTimer.start();
-        }
-    }
-    Timer {
-        id: endSpeedCourtTimer
-        interval: warmUpTime
-        onTriggered: {
-            console.log('endSpeedCourtTimer triggered');
-            timeExpired = true;
-        }
+    function endTraining(){
+        blueArrow.visible = false;
+        training = false;
+        hudImage.visible = false;
+        hudText.text = "Now try to repeat this\nas often as you can...";
+        hudText.visible = true;
+        callDelayed(function(){getReady()});
     }
 
-    Timer {
-        id: startSelectionMenu
-        interval: 2000
-        onTriggered: {
-            console.log('startSelectionMenu triggered');
-            warmUp.visible = false;
-            selectionMenu.startMenu();
-        }
+    function getReady(){
+        console.log('getReady called');
+        hudText.text = "Get ready!";
+        callDelayed(function(){startSpeedCourt()});
     }
 
+    function startSpeedCourt(){
+        console.log('startSpeedCourt called');
+        hudText.visible = false;
+
+        centerFeet.visible = false;
+        centerButton.visible = true;
+        corners.visible = true;
+        warmUp.pickRandomChild();
+        //reset clickCount
+        clickCount = 0;
+        warmUp.running = true;
+        callDelayed(function(){endSpeedCourt()}, warmUpTime);
+    }
+
+    function endSpeedCourt(){
+        warmUp.running = false;
+        console.log('endSpeedCourt called');
+        timeExpired = true;
+    }
+
+    function warmUpDone() {
+        console.log("warmUpDone called");
+        corners.visible = false;
+        centerButton.visible = false;
+        
+        hudImage.visible = false;
+        hudText.text = "Warm up done!\nYour score: " + clickCount;
+        hudText.visible = true;
+        callDelayed(function(){startSelectionMenu()}, 2000);
+    }
+
+    function startSelectionMenu(){
+        console.log('startSelectionMenu called');
+        warmUp.visible = false;
+        selectionMenu.startMenu();
+    }
+
+    function callDelayed(callback, interval){
+        if(!warmUpTimer.running){
+            // default interval: 1000
+            interval = typeof interval !== 'undefined' ? interval : 1000;
+            warmUpTimer.callback = callback;
+            warmUpTimer.interval = interval;
+            warmUpTimer.start();
+            console.log("Timer started (interval: " + interval + ")");
+        }
+    }
     
 }
 
