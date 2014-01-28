@@ -16,7 +16,7 @@ Rectangle {
     property bool hasStarted: false
     property bool running: false
     property bool training: true
-    property var colors: shuffle(["red", "blue", "green", "yellow"])
+    property var colors: shuffle(["red", "blue", "darkgreen", "yellow", "deeppink", "lime", "orange", "purple"])
 
 
     function pickRandomChild() {
@@ -110,8 +110,8 @@ Rectangle {
                 PropertyChanges { target: centerButton; color: "red" }
             },
             State {
-                name: "green"
-                PropertyChanges { target: centerButton; color: "green" }
+                name: "darkgreen"
+                PropertyChanges { target: centerButton; color: "darkgreen" }
             },
             State {
                 name: "blue"
@@ -120,6 +120,22 @@ Rectangle {
             State {
                 name: "yellow"
                 PropertyChanges { target: centerButton; color: "yellow" }
+            },
+            State {
+                name: "deeppink"
+                PropertyChanges { target: centerButton; color: "deeppink" }
+            },
+            State {
+                name: "lime"
+                PropertyChanges { target: centerButton; color: "lime" }
+            },
+            State {
+                name: "orange"
+                PropertyChanges { target: centerButton; color: "orange" }
+            },
+            State {
+                name: "purple"
+                PropertyChanges { target: centerButton; color: "purple" }
             }
         ]
 
@@ -148,7 +164,7 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(warmUp.visible && currentCorner == topLeft.cornerID ){
-                        if(training){
+                        if(training && !cornerChecked){
                             redArrow.rotation += 180;
                         }
                         correctCornerTapped()
@@ -171,7 +187,7 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(warmUp.visible && currentCorner == topRight.cornerID) {
-                        if(training){
+                        if(training && !cornerChecked){
                             blueArrow.rotation += 180;
                         }
                         correctCornerTapped()
@@ -262,8 +278,9 @@ Rectangle {
 
     function getReady(){
         console.log('getReady called');
+        hudText.visible = true;
         hudText.text = "Get ready!";
-        callDelayed(function(){startSpeedCourt()});
+        callDelayed(function(){startSpeedCourt()}, 2000);
     }
 
     function startSpeedCourt(){
@@ -301,6 +318,14 @@ Rectangle {
         console.log('startSelectionMenu called');
         warmUp.visible = false;
         selectionMenu.startMenu();
+    }
+
+    function restart(){
+        warmUp.visible = true;
+        getReady();
+        centerButton.state = "white";
+        centerButton.visible = true;
+        corners.visible = true;
     }
 
     function callDelayed(callback, interval){
