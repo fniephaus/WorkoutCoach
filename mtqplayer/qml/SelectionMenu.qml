@@ -8,7 +8,7 @@ Rectangle {
     color: "#ff333333"
     property var targetVariables: ["","","",""]
 
-    property var mainCategories: [["Make me sweat!", ""], ["Workouts", workoutCategories], ["Single Exercises", stretchingExercises], ["?", ""]]
+    property var mainCategories: [["Make me sweat!", ""], ["Workouts", workoutCategories], ["Single Exercises", stretchingExercises], ["Warm Up", "warmup"]]
     property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", ""]]
     property var exerciseCategories: [["Stretching", stretchingExercises], ["Cardio", cardioExercises], ["Flexibility", ""], ["Stamina", ""]]
     property var stretchingExercises: [["Lunges", "lunges"], ["B", ""], ["C", ""], ["D", ""]]
@@ -24,13 +24,18 @@ Rectangle {
 
     function setFields(list, showBackButton){
         if (typeof list === "string"){
-            if(list == "lunges"){
-                selectionMenu.visible = false;
-                exerciseLunges.visible = true;
-            }else{
-                selectionMenu.visible = false;
-                notImplemented.visible = true;
-                notImplementedTimer.start();
+            selectionMenu.visible = false;
+            switch(list){
+                case "lunges":
+                    exerciseLunges.startLunges();
+                    break;
+                case "warmup":
+                    warmUp.visible = true;
+                    warmUp.getReady();
+                    break;
+                default:
+                    notImplemented.visible = true;
+                    notImplementedTimer.start();
             }
         }else{
             topLeftText.text = list[0][0];
