@@ -80,7 +80,6 @@ Rectangle {
         visible: false
         font.pointSize: 100
         color: "white"
-        text: "4s"
         rotation: 30
     }
 
@@ -94,7 +93,6 @@ Rectangle {
         visible: false
         font.pointSize: 100
         color: "white"
-        text: "3s"
         rotation: -30
     }
     
@@ -131,13 +129,16 @@ Rectangle {
                 }
             }
 
-            states: [State {
-                name: "front"
-                PropertyChanges { target: leftFoot; y: 400; duration: 2000; }
-            },State {
-                name: "back"
-                PropertyChanges { target: leftFoot; y: 1600; duration: 2000; }
-            }]
+            states: [
+                State {
+                    name: "front"
+                    PropertyChanges { target: leftFoot; y: 400; duration: 2000; }
+                },
+                State {
+                    name: "back"
+                    PropertyChanges { target: leftFoot; y: 1600; duration: 2000; }
+                }
+            ]
 
             transitions: Transition {
                 NumberAnimation { properties: "y"; easing.type: Easing.InOutQuad }
@@ -169,13 +170,16 @@ Rectangle {
                 }
             }
 
-            states: [State {
-                name: "front"
-                PropertyChanges { target: rightFoot; y: 400; duration: 2000; }
-            },State {
-                name: "back"
-                PropertyChanges { target: rightFoot; y: 1600; duration: 2000; }
-            }]
+            states: [
+                State {
+                    name: "front"
+                    PropertyChanges { target: rightFoot; y: 400; duration: 2000; }
+                },
+                State {
+                    name: "back"
+                    PropertyChanges { target: rightFoot; y: 1600; duration: 2000; }
+                }
+            ]
 
             transitions: Transition {
                 NumberAnimation { properties: "y"; easing.type: Easing.InOutQuad }

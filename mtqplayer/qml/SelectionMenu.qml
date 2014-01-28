@@ -30,8 +30,7 @@ Rectangle {
                     exerciseLunges.startLunges();
                     break;
                 case "warmup":
-                    warmUp.visible = true;
-                    warmUp.getReady();
+                    warmUp.restart();
                     break;
                 default:
                     notImplemented.visible = true;
