@@ -9,6 +9,7 @@ BaseWidget {
     property int rotation: 0
     property int offsetRotation: 0
     property var primaryFoot: 'right'
+    property bool debug: true
 
     WarmUp {
         id: warmUp
@@ -75,7 +76,7 @@ BaseWidget {
     }
 
     Rectangle {
-        visible: true
+        visible: floor.debug
         id: moveRect
         color: "#ffffff"
         width: 1

@@ -13,15 +13,15 @@ Rectangle {
     property bool leftDown: false
     property bool rightDown: false
     property bool hasStarted: false
-    property bool debug: true
-
 
     function startLunges(){
+        exerciseCounter = 8;
+        exerciseDuration = 8;
+        leftFootTurn = true;
+        hasStarted = false;
+
         exerciseLunges.visible = true;
-
-        rightTextLunges.text = exerciseDuration + "s";
         rightTextLunges.visible = true;
-
     }
 
     function exerciseInProgess(){
@@ -66,13 +66,13 @@ Rectangle {
         width: 900
         height: 454
         y: parent.height/4
-        x: parent.width/2 + width/2 + 50
-        rotation: 30
+        x: parent.width/2 + width/2 + 150
+        rotation: 40
     }
 
     Text {
         id: rightTextLunges
-        x: parent.width/2 + width/2 + 200
+        x: parent.width/2 + width/2 + 300
         y: parent.height/4 - 150
         width: 200
         height: 200
@@ -86,7 +86,7 @@ Rectangle {
 
     Text {
         id: leftTextLunges
-        x: parent.width/2 - width/2 - 200
+        x: parent.width/2 - width/2 - 300
         y: parent.height/4 - 150
         width: 200
         height: 200
@@ -114,11 +114,11 @@ Rectangle {
             onMtqContactDown: {
                 if(exerciseLunges.visible){
                     leftDown = true;
-                    if(!hasStarted && (debug || rightDown)){
+                    if(!hasStarted && (floor.debug || rightDown)){
                         exerciseLunges.startLunges();
                         hasStarted = true;
                     }
-                    if((debug || rightDown)){
+                    if((floor.debug || rightDown)){
                         exerciseTimer.start();
                     }
 
@@ -151,11 +151,11 @@ Rectangle {
             onMtqContactDown: {
                 if(exerciseLunges.visible){
                     rightDown = true;
-                    if(!hasStarted && (debug || leftDown)){
+                    if(!hasStarted && (floor.debug || leftDown)){
                         exerciseLunges.startLunges();
                         hasStarted = true;
                     }
-                    if((debug || leftDown)){
+                    if((floor.debug || leftDown)){
                         exerciseTimer.start();
                     }
 
