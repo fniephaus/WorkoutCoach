@@ -8,34 +8,28 @@ Rectangle {
     color: "#ff333333"
     property var targetVariables: ["","","",""]
 
-    property var mainCategories: [["Make me sweat!", ""], ["Workouts", workoutCategories], ["Single Exercises", stretchingExercises], ["Warm Up", "warmup"]]
-    property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", ""]]
-    property var exerciseCategories: [["Stretching", stretchingExercises], ["Cardio", cardioExercises], ["Flexibility", ""], ["Stamina", ""]]
-    property var stretchingExercises: [["Lunges", "lunges"], ["B", ""], ["C", ""], ["D", ""]]
-    property var cardioExercises: [["Sequence", ""], ["B", ""], ["C", ""], ["D", ""]]
+
+    property var exercisesToDo: []
+    property var mainCategories: [["Make me sweat!", "makemesweat"], ["Workouts", workoutCategories], ["Single Exercises", singleExercises], ["Warm Up", "warmup"]]
+    property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", "random"]]
+    property var singleExercises: [["Lunges", "lunges"], ["High Knees", "highknees"], ["Jumping Jacks", "jumpingjacks"], ["Lateral Hops", "lateralhops"]]
 
     function startMenu() {
-        console.log('startMenu called');
-        selectionMenu.visible = true;
-        hudText.text = "Well done!\nNow make your selection!";
-        setFields(mainCategories, false);
-        selectionIntro.start();
+        if(selectionMenu.exercisesToDo.length > 0){
+            startNextExercise();
+        }else{
+            console.log('startMenu called');
+            selectionMenu.visible = true;
+            hudText.text = "Well done!\nNow make your selection!";
+            setFields(mainCategories, false);
+            selectionIntro.start();
+        }
     }
 
     function setFields(list, showBackButton){
         if (typeof list === "string"){
             selectionMenu.visible = false;
-            switch(list){
-                case "lunges":
-                    exerciseLunges.startLunges();
-                    break;
-                case "warmup":
-                    warmUp.restart();
-                    break;
-                default:
-                    notImplemented.visible = true;
-                    notImplementedTimer.start();
-            }
+            startExercise(list);
         }else{
             topLeftText.text = list[0][0];
             topRightText.text = list[1][0];
@@ -45,6 +39,42 @@ Rectangle {
             for (var i = 0; i < 4; i++) {
                 targetVariables[i] = list[i][1];
             }
+        }
+    }
+
+    function startNextExercise(){
+        var nextExercise = selectionMenu.exercisesToDo.pop();
+        startExercise(nextExercise);
+    }
+
+    function startExercise(name){
+        switch(name){
+            case "makemesweat":
+                selectionMenu.exercisesToDo = ["lunges", "warmup", "highknees"];
+                startNextExercise();
+                break;
+            case "random":
+                selectionMenu.exercisesToDo = suffle(["lunges", "warmup", "highknees"]);
+                startNextExercise();
+                break;
+            case "lunges":
+                exerciseLunges.start();
+                break;
+            case "highknees":
+                exerciseHighKnees.start();
+                break;
+            case "jumpingjacks":
+                exerciseLunges.startLunges();
+                break;
+            case "lateralhops":
+                exerciseLunges.startLunges();
+                break;
+            case "warmup":
+                warmUp.restart();
+                break;
+            default:
+                notImplemented.visible = true;
+                notImplementedTimer.start();
         }
     }
 
@@ -191,6 +221,29 @@ Rectangle {
             notImplemented.visible = false;
             selectionMenu.startMenu();
         }
+    }
+
+    //helpers
+    function shuffle(array) {
+        var currentIndex = array.length
+        , temporaryValue
+        , randomIndex
+        ;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
     }
 }
 
