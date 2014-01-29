@@ -101,7 +101,7 @@ Rectangle {
         onTriggered: {
             if(exerciseCounter > 4 && !exerciseHighKnees.exerciseDone){
                 if(seconds < exerciseDuration){
-                    textHighKnees.text = (exerciseDuration-seconds) + "s to go!\n\n" + Math.floor(exerciseCounter/seconds*100)/100 + " taps per second";
+                    textHighKnees.text = (exerciseDuration-seconds) + "s to go!\n\n" + Math.floor(exerciseCounter/(seconds+1)*100)/100 + " taps per second";
                     seconds++;
                 }else{
                     exerciseHighKnees.exerciseDone = true;
@@ -124,7 +124,7 @@ Rectangle {
     }
 
     function getRating(){
-        var ratio = exerciseCounter/seconds;
+        var ratio = exerciseCounter/(seconds+1);
         var output = Math.floor(ratio*100)/100 + " taps per second\nare ";
         if(ratio < 2){
             output += "pretty bad!\n\nYour can do better than this!";

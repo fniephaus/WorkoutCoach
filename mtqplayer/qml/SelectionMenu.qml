@@ -64,7 +64,7 @@ Rectangle {
                 exerciseHighKnees.start();
                 break;
             case "jumpingjacks":
-                exerciseLunges.startLunges();
+                exerciseJumpingJacks.start();
                 break;
             case "lateralhops":
                 exerciseLunges.startLunges();

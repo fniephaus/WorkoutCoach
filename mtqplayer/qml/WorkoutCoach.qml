@@ -26,12 +26,17 @@ BaseWidget {
 
         ExerciseLunges {
             id: exerciseLunges
-            // visible: false
+            visible: false
         }
 
         ExerciseHighKnees {
             id: exerciseHighKnees
             visible: false
+        }
+
+        ExerciseJumpingJacks {
+            id: exerciseJumpingJacks
+            // visible: false
         }
 
 
