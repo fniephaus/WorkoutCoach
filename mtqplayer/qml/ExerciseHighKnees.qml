@@ -14,6 +14,7 @@ Rectangle {
     property bool leftDown: false
     property bool rightDown: false
     property bool hasStarted: false
+    property bool leftTurn: false
 
     function start(){
         exerciseCounter = 0;
@@ -21,6 +22,7 @@ Rectangle {
         seconds = 0;
         hasStarted = false;
         exerciseDone = false;
+        leftTurn = false;
 
         exerciseHighKnees.visible = true;
         textHighKnees.text = "Lift your knees and\nalternately tap on the feet!";
@@ -52,8 +54,9 @@ Rectangle {
                 }
 
                 tapped = true;
-                if(!rightFoot.tapped){
+                if(!rightFoot.tapped && leftTurn){
                     exerciseCounter++;
+                    leftTurn = false;
                 }
             }
         }
@@ -78,8 +81,9 @@ Rectangle {
                 }
 
                 tapped = true;
-                if(!leftFoot.tapped){
+                if(!leftFoot.tapped && !leftTurn){
                     exerciseCounter++;
+                    leftTurn = true;
                 }
             }
         }
