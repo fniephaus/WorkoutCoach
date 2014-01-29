@@ -12,7 +12,7 @@ Rectangle {
     property var exercisesToDo: []
     property var mainCategories: [["Make me sweat!", "makemesweat"], ["Workouts", workoutCategories], ["Single Exercises", singleExercises], ["Warm Up", "warmup"]]
     property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", "random"]]
-    property var singleExercises: [["Lunges", "lunges"], ["High Knees", "highknees"], ["Jumping Jacks", "jumpingjacks"], ["Lateral Hops", "lateralhops"]]
+    property var singleExercises: [["Lunges", "lunges"], ["High Knees", "highknees"], ["Jumping Jacks", "jumpingjacks"], ["Lateral Jumps", "lateraljumps"]]
 
     function startMenu() {
         if(selectionMenu.exercisesToDo.length > 0){
@@ -66,8 +66,8 @@ Rectangle {
             case "jumpingjacks":
                 exerciseJumpingJacks.start();
                 break;
-            case "lateralhops":
-                exerciseLunges.startLunges();
+            case "lateraljumps":
+                exerciseLiteralJumps.start();
                 break;
             case "warmup":
                 warmUp.restart();

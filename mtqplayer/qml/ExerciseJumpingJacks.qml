@@ -10,6 +10,7 @@ Rectangle {
     property int exerciseCounter: 0
     property int exerciseDuration: 20
     property int seconds: 0
+    property int trainingReps: 4
     property bool exerciseDone: false
     property bool leftDown: false
     property bool rightDown: false
@@ -131,9 +132,9 @@ Rectangle {
         interval: 1000
         repeat: true
         onTriggered: {
-            if(exerciseCounter > 4 && !exerciseJumpingJacks.exerciseDone){
+            if(exerciseCounter > trainingReps && !exerciseJumpingJacks.exerciseDone){
                 if(seconds < exerciseDuration){
-                    textJumpingJacks.text = (exerciseDuration-seconds) + "s to go!\n\n" + Math.floor(exerciseCounter/(seconds+1)*100)/100 + " taps per second";
+                    textJumpingJacks.text = (exerciseDuration-seconds) + "s to go!\n\n" + Math.floor((exerciseCounter-trainingReps)/(seconds+1)*100)/100 + " reps per second";
                     seconds++;
                 }else{
                     exerciseJumpingJacks.exerciseDone = true;
@@ -156,8 +157,8 @@ Rectangle {
     }
 
     function getRating(){
-        var ratio = exerciseCounter/(seconds+1);
-        var output = Math.floor(ratio*100)/100 + " taps per second\nare ";
+        var ratio = (exerciseCounter-trainingReps)/(seconds+1);
+        var output = Math.floor(ratio*100)/100 + " reps per second\nare ";
         if(ratio < 1){
             output += "pretty bad!\n\nYour can do better than this!";
         }else if(ratio < 1.5){

@@ -13,7 +13,7 @@ BaseWidget {
 
     WarmUp {
         id: warmUp
-        visible: false
+        // visible: false
     }
         
     SelectionMenu {
@@ -36,7 +36,12 @@ BaseWidget {
 
         ExerciseJumpingJacks {
             id: exerciseJumpingJacks
-            // visible: false
+            visible: false
+        }
+
+        ExerciseLiteralJumps {
+            id: exerciseLiteralJumps
+            visible: false
         }
 
 
