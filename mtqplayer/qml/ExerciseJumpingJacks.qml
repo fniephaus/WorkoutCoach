@@ -68,7 +68,7 @@ Rectangle {
             },
             State {
                 name: "close"
-                PropertyChanges { target: leftFootJumpingJacks; x: floor.width/2 - leftFootJumpingJacks.width - 100;}
+                PropertyChanges { target: leftFootJumpingJacks; x: floor.width/2 - leftFootJumpingJacks.width - 180;}
             }
         ]
 
@@ -118,7 +118,7 @@ Rectangle {
             },
             State {
                 name: "close"
-                PropertyChanges { target: rightFootJumpingJacks; x: floor.width/2 + 100;}
+                PropertyChanges { target: rightFootJumpingJacks; x: floor.width/2 + 180;}
             }
         ]
 
