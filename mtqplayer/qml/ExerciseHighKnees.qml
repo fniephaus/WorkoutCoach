@@ -44,7 +44,7 @@ Rectangle {
     FootButton {
         id: leftFoot
         type: 'left'
-        x: floor.width/2 - leftFoot.width - 300
+        x: floor.width/2 - leftFoot.width - 200
         y: floor.height/2
         property bool tapped: false
         onMtqContactDown: {
@@ -71,7 +71,7 @@ Rectangle {
     FootButton {
         id: rightFoot
         type: 'right'
-        x: floor.width/2 + 300
+        x: floor.width/2 + 200
         y: floor.height/2
         property bool tapped: false
         onMtqContactDown: {
@@ -102,7 +102,7 @@ Rectangle {
         onTriggered: {
             if(exerciseCounter > trainingReps && !exerciseHighKnees.exerciseDone){
                 if(seconds < exerciseDuration){
-                    textHighKnees.text = (exerciseDuration-seconds) + "s to go!\n\n" + Math.floor((exerciseCounter-trainingReps)/(seconds+1)*100)/100 + " reps per second";
+                    textHighKnees.text = (exerciseDuration-seconds) + "s to go!" + "\n\n" + getRepsPerSecond(exerciseDuration-seconds);
                     seconds++;
                 }else{
                     exerciseHighKnees.exerciseDone = true;
@@ -121,6 +121,14 @@ Rectangle {
             hudText.visible = false;
             exerciseHighKnees.visible = false;
             selectionMenu.startMenu();
+        }
+    }
+
+    function getRepsPerSecond(secondsLeft){
+        if(secondsLeft < 13 && secondsLeft > 10){
+            return "Lift them higher!";
+        }else{
+            return Math.floor((exerciseCounter-trainingReps)/(seconds+1)*100)/100 + " reps per second";
         }
     }
 
