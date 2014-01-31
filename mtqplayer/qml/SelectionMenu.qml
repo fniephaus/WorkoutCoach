@@ -11,11 +11,12 @@ Rectangle {
 
     property var exercisesToDo: []
     property var mainCategories: [["Make me sweat!", "makemesweat"], ["Workouts", workoutCategories], ["Single Exercises", singleExercises], ["Warm Up", "warmup"]]
-    property var workoutCategories: [["Stretching", ""], ["Cardio", ""], ["BodyAttack", ""], ["Random", "random"]]
-    property var singleExercises: [["Lunges", "lunges"], ["High Knees", "highknees"], ["Jumping Jacks", "jumpingjacks"], ["Lateral Jumps", "lateraljumps"]]
+    property var workoutCategories: [["Stretching", "stretching"], ["Cardio", "cardio"], ["BodyAttack", "bodyattack"], ["Random", "random"]]
+    property var singleExercises: [["Lunges", "lunges"], ["High Knees", "highknees"], ["Jumping Jacks", "jumpingjacks"], ["Literal Jumps", "literaljumps"]]
 
     function startMenu() {
         if(selectionMenu.exercisesToDo.length > 0){
+            hudText.visible = false;
             startNextExercise();
         }else{
             console.log('startMenu called');
@@ -31,6 +32,8 @@ Rectangle {
             selectionMenu.visible = false;
             startExercise(list);
         }else{
+            centerButtonSelectionMenu.visible = showBackButton;
+
             topLeftText.text = list[0][0];
             topRightText.text = list[1][0];
             bottomLeftText.text = list[2][0];
@@ -50,11 +53,23 @@ Rectangle {
     function startExercise(name){
         switch(name){
             case "makemesweat":
-                selectionMenu.exercisesToDo = ["lunges", "warmup", "highknees"];
+                selectionMenu.exercisesToDo = ["warmup", "lunges", "literaljumps", "jumpingjacks", "highknees"];
+                startNextExercise();
+                break;
+            case "stretching":
+                selectionMenu.exercisesToDo = ["literaljumps", "lunges"];
+                startNextExercise();
+                break;
+            case "cardio":
+                selectionMenu.exercisesToDo = ["warmup", "jumpingjacks", "highknees"];
+                startNextExercise();
+                break;
+            case "bodyattack":
+                selectionMenu.exercisesToDo = ["lunges", "highknees", "literaljumps"];
                 startNextExercise();
                 break;
             case "random":
-                selectionMenu.exercisesToDo = suffle(["lunges", "warmup", "highknees"]);
+                selectionMenu.exercisesToDo = suffle(["warmup", "lunges", "literaljumps", "jumpingjacks", "highknees"]);
                 startNextExercise();
                 break;
             case "lunges":
@@ -66,7 +81,7 @@ Rectangle {
             case "jumpingjacks":
                 exerciseJumpingJacks.start();
                 break;
-            case "lateraljumps":
+            case "literaljumps":
                 exerciseLiteralJumps.start();
                 break;
             case "warmup":
@@ -78,6 +93,36 @@ Rectangle {
         }
     }
 
+
+    Rectangle {
+        id: centerButtonSelectionMenu
+        x: 1748
+        y: 900
+        width: 600
+        height: 600
+        visible: false
+        radius: width * 0.5
+        color: "grey"
+        Text {
+            text: "back"
+            id: textSelectionMenuBack
+            x: parent.width/2 - width/2
+            y: 200
+            width: 200
+            height: 200
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 100
+            color: "white"
+        }
+        BaseWidget {
+            anchors.fill: parent;
+            onMtqContactDown: {
+                if(selectionMenu.visible){
+                    setFields(mainCategories, false);
+                }
+            }
+        }
+    }
 
     Item {
         id: corners
@@ -95,7 +140,7 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(selectionMenu.visible){
-                        setFields(targetVariables[0]);
+                        setFields(targetVariables[0], true);
                     }
                 }
             }
@@ -125,7 +170,7 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(selectionMenu.visible){
-                        setFields(targetVariables[1]);
+                        setFields(targetVariables[1], true);
                     }
                 }
             }
@@ -155,7 +200,7 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(selectionMenu.visible){
-                        setFields(targetVariables[2]);
+                        setFields(targetVariables[2], true);
                     }
                 }
             }
@@ -185,7 +230,7 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(selectionMenu.visible){
-                        setFields(targetVariables[3]);
+                        setFields(targetVariables[3], true);
                     }
                 }
             }
