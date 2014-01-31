@@ -8,7 +8,7 @@ Rectangle {
     color: "#ff333333"
 
     property int exerciseCounter: 0
-    property int exerciseDuration: 20
+    property int exerciseDuration: 30
     property int seconds: 0
     property int trainingReps: 4
     property bool exerciseDone: false
@@ -55,11 +55,20 @@ Rectangle {
                 down = true;
 
                 if(rightFootLiteralJumps.down || floor.debug){
-                    if(leftFootLiteralJumps.state == "normal" && rightFootLiteralJumps.state == "normal" && leftTurn){
-                        leftFootLiteralJumps.state = "crossed";
-                        leftTurn = false;
+                    if(leftTurn){
+                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                            leftFootLiteralJumps.state = "crossed";
+                        }else{
+                            leftFootLiteralJumps.state = "normal";
+                            leftTurn = false;
+                            if(exerciseTimerLiteralJumps.running){
+                                exerciseCounter++;
+                            }
+                        }
                     }else{
-                        leftFootLiteralJumps.state = "normal";
+                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                            rightFootLiteralJumps.state = "crossed";
+                        }
                     }
                 }
             }
@@ -103,14 +112,20 @@ Rectangle {
                         exerciseTimerLiteralJumps.start();
                         hasStarted = true;
                     }
-                    if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal" && !leftTurn){
-                        rightFootLiteralJumps.state = "crossed";
-                        leftTurn = true;
+                    if(!leftTurn){
+                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                            rightFootLiteralJumps.state = "crossed";
+                        }else{
+                            rightFootLiteralJumps.state = "normal";
+                            leftTurn = true;
+                            if(exerciseTimerLiteralJumps.running){
+                                exerciseCounter++;
+                            }
+                        }
                     }else{
-                        rightFootLiteralJumps.state = "normal";
-                    }
-                    if(exerciseTimerLiteralJumps.running){
-                        exerciseCounter++;
+                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                            leftFootLiteralJumps.state = "crossed";
+                        }
                     }
                 }
             }
