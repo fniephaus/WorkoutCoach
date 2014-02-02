@@ -163,7 +163,7 @@ Rectangle {
         onTriggered: {
             if(exerciseCounter > trainingReps && !exerciseLiteralJumps.exerciseDone){
                 if(seconds < exerciseDuration){
-                    textLiteralJumps.text = (exerciseDuration-seconds) + "s to go!\n\n" + Math.floor((exerciseCounter-trainingReps)/(seconds+1)*100)/100 + " reps per second";
+                    textLiteralJumps.text = (exerciseDuration-seconds) + "s to go!\n\n" + getRepsPerSecond(exerciseDuration-seconds);
                     seconds++;
                 }else{
                     exerciseLiteralJumps.exerciseDone = true;
@@ -182,6 +182,14 @@ Rectangle {
             hudText.visible = false;
             exerciseLiteralJumps.visible = false;
             selectionMenu.startMenu();
+        }
+    }
+
+    function getRepsPerSecond(secondsLeft){
+        if(secondsLeft < 13 && secondsLeft > 10){
+            return "Keep going!";
+        }else{
+            return Math.floor((exerciseCounter-trainingReps)/(seconds+1)*100)/100 + " reps per second";
         }
     }
 

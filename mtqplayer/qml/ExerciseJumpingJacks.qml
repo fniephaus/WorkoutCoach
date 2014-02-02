@@ -134,7 +134,7 @@ Rectangle {
         onTriggered: {
             if(exerciseCounter > trainingReps && !exerciseJumpingJacks.exerciseDone){
                 if(seconds < exerciseDuration){
-                    textJumpingJacks.text = (exerciseDuration-seconds) + "s to go!\n\n" + Math.floor((exerciseCounter-trainingReps)/(seconds+1)*100)/100 + " reps per second";
+                    textJumpingJacks.text = (exerciseDuration-seconds) + "s to go!\n\n" + getRepsPerSecond(exerciseDuration-seconds);
                     seconds++;
                 }else{
                     exerciseJumpingJacks.exerciseDone = true;
@@ -156,16 +156,24 @@ Rectangle {
         }
     }
 
+    function getRepsPerSecond(secondsLeft){
+        if(secondsLeft < 13 && secondsLeft > 10){
+            return "Keep it going!";
+        }else{
+            return Math.floor((exerciseCounter-trainingReps)/(seconds+1)*100)/100 + " reps per second";
+        }
+    }
+
     function getRating(){
         var ratio = (exerciseCounter-trainingReps)/(seconds+1);
         var output = Math.floor(ratio*100)/100 + " reps per second\nare ";
-        if(ratio < 1){
+        if(ratio < 0.5){
             output += "pretty bad!\n\nYour can do better than this!";
-        }else if(ratio < 1.5){
+        }else if(ratio < 0.75){
             output += "not too good!\n\nTry to be better next time!";
-        }else if(ratio < 2){
+        }else if(ratio < 1){
             output += "ok!\n\nBut you can still be better!";
-        }else if(ratio < 2.5){
+        }else if(ratio < 1.4){
             output += "pretty good!\n\nCan you still beat this?!";
         }else{
             output += "very good!\n\nAwesome!!!";

@@ -121,13 +121,13 @@ Rectangle {
     function getRating(){
         var ratio = (exerciseCounter-trainingReps)/(seconds+1);
         var output = Math.floor(ratio*100)/100 + " reps per second\nare ";
-        if(ratio < 2){
+        if(ratio < 0.5){
             output += "pretty bad!\n\nYour can do better than this!";
-        }else if(ratio < 3){
+        }else if(ratio < 0.75){
             output += "not too good!\n\nTry to be better next time!";
-        }else if(ratio < 4){
+        }else if(ratio < 1){
             output += "ok!\n\nBut you can still be better!";
-        }else if(ratio < 5){
+        }else if(ratio < 1.5){
             output += "pretty good!\n\nCan you still beat this?!";
         }else{
             output += "very good!\n\nAwesome!!!";
