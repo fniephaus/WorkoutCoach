@@ -39,8 +39,8 @@ BaseWidget {
             visible: false
         }
 
-        ExerciseLiteralJumps {
-            id: exerciseLiteralJumps
+        ExerciseLateralJumps {
+            id: exerciseLateralJumps
             visible: false
         }
 

@@ -47,9 +47,10 @@ Rectangle {
     FootButton {
         id: leftFootLiteralJumps
         type: 'left'
-        x: floor.width/2 - leftFootLiteralJumps.width - 400
+        x: floor.width/2 - leftFootLiteralJumps.width - 600
         y: floor.height/2
         property bool down: false
+        visible: false
         onMtqContactDown: {
             if(exerciseLiteralJumps.visible){
                 down = true;
@@ -84,11 +85,11 @@ Rectangle {
         states: [
             State {
                 name: "normal"
-                PropertyChanges { target: leftFootLiteralJumps; x: floor.width/2 - leftFootLiteralJumps.width - 400; y: floor.height/2;}
+                PropertyChanges { target: leftFootLiteralJumps; x: floor.width/2 - leftFootLiteralJumps.width - 600; y: floor.height/2;}
             },
             State {
                 name: "crossed"
-                PropertyChanges { target: leftFootLiteralJumps; x: floor.width/2 + 400 + leftFootLiteralJumps.width; y: floor.height/2 + leftFootLiteralJumps.height + 100;}
+                PropertyChanges { target: leftFootLiteralJumps; x: floor.width/2 + 600 + leftFootLiteralJumps.width; y: floor.height/2 + leftFootLiteralJumps.height + 100;}
             }
         ]
 
@@ -100,7 +101,7 @@ Rectangle {
     FootButton {
         id: rightFootLiteralJumps
         type: 'right'
-        x: floor.width/2 + 400
+        x: floor.width/2 + 600
         y: floor.height/2
         property bool down: false
         onMtqContactDown: {
@@ -111,6 +112,7 @@ Rectangle {
                     if(!hasStarted){
                         exerciseTimerLiteralJumps.start();
                         hasStarted = true;
+                        leftFootLiteralJumps.visible = true;
                     }
                     if(!leftTurn){
                         if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
@@ -141,11 +143,11 @@ Rectangle {
         states: [
             State {
                 name: "normal"
-                PropertyChanges { target: rightFootLiteralJumps; x: floor.width/2 + 400; y: floor.height/2;}
+                PropertyChanges { target: rightFootLiteralJumps; x: floor.width/2 + 600; y: floor.height/2;}
             },
             State {
                 name: "crossed"
-                PropertyChanges { target: rightFootLiteralJumps; x: floor.width/2 - leftFootLiteralJumps.width - 400 - rightFootLiteralJumps.width; y: floor.height/2 + rightFootLiteralJumps.height + 100;}
+                PropertyChanges { target: rightFootLiteralJumps; x: floor.width/2 - leftFootLiteralJumps.width - 600 - rightFootLiteralJumps.width; y: floor.height/2 + rightFootLiteralJumps.height + 100;}
             }
         ]
 

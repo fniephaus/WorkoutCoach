@@ -47,7 +47,7 @@ Rectangle {
     FootButton {
         id: leftFootJumpingJacks
         type: 'left'
-        x: floor.width/2 - leftFootJumpingJacks.width - 500
+        x: floor.width/2 - leftFootJumpingJacks.width - 300
         y: floor.height/2
         property bool down: false
         onMtqContactDown: {
@@ -64,11 +64,11 @@ Rectangle {
         states: [
             State {
                 name: "wide"
-                PropertyChanges { target: leftFootJumpingJacks; x: floor.width/2 - leftFootJumpingJacks.width - 500;}
+                PropertyChanges { target: leftFootJumpingJacks; x: floor.width/2 - leftFootJumpingJacks.width - 300;}
             },
             State {
                 name: "close"
-                PropertyChanges { target: leftFootJumpingJacks; x: floor.width/2 - leftFootJumpingJacks.width - 180;}
+                PropertyChanges { target: leftFootJumpingJacks; x: floor.width/2 - leftFootJumpingJacks.width - 80;}
             }
         ]
 
@@ -80,7 +80,7 @@ Rectangle {
     FootButton {
         id: rightFootJumpingJacks
         type: 'right'
-        x: floor.width/2 + 500
+        x: floor.width/2 + 300
         y: floor.height/2
         property bool down: false
         onMtqContactDown: {
@@ -114,11 +114,11 @@ Rectangle {
         states: [
             State {
                 name: "wide"
-                PropertyChanges { target: rightFootJumpingJacks; x: floor.width/2 + 500;}
+                PropertyChanges { target: rightFootJumpingJacks; x: floor.width/2 + 300;}
             },
             State {
                 name: "close"
-                PropertyChanges { target: rightFootJumpingJacks; x: floor.width/2 + 180;}
+                PropertyChanges { target: rightFootJumpingJacks; x: floor.width/2 + 80;}
             }
         ]
 

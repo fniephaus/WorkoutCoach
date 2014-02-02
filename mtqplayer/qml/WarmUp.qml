@@ -45,7 +45,7 @@ Rectangle {
     }
 
     Image {
-        id: redArrow
+        id: topLeftArrow
         width: 800
         height: 400
         x: 700
@@ -59,15 +59,15 @@ Rectangle {
 
 
     Image {
-        id: blueArrow
+        id: bottomRightArrow
         width: 800
         height: 400
         x: 2550
-        y: 480
+        y: 1920 - height
         sourceSize.width: 800
         sourceSize.height: 600
         visible: false
-        rotation: 330
+        rotation: 390
         source: "../resources/svg/WhiteArrow.svg"
     }
 
@@ -84,11 +84,11 @@ Rectangle {
             onMtqContactDown: {
                 if(warmUp.visible && cornerChecked && (warmUp.running || !warmUpTimer.running)){
                     if(training){
-                        if(redArrow.visible){
-                            redArrow.visible = false;
-                            blueArrow.visible = true;
-                            centerButton.state = warmUp.colors[1];
-                            currentCorner = 1;
+                        if(topLeftArrow.visible){
+                            topLeftArrow.visible = false;
+                            bottomRightArrow.visible = true;
+                            centerButton.state = warmUp.colors[3];
+                            currentCorner = 3;
                             cornerChecked = false;
                         } else {
                             endTraining();
@@ -165,7 +165,7 @@ Rectangle {
                 onMtqContactDown: {
                     if(warmUp.visible && currentCorner == topLeft.cornerID ){
                         if(training && !cornerChecked){
-                            redArrow.rotation += 180;
+                            topLeftArrow.rotation += 180;
                         }
                         correctCornerTapped()
                     }
@@ -187,9 +187,6 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(warmUp.visible && currentCorner == topRight.cornerID) {
-                        if(training && !cornerChecked){
-                            blueArrow.rotation += 180;
-                        }
                         correctCornerTapped()
                     }
                 }
@@ -230,6 +227,9 @@ Rectangle {
                 anchors.fill: parent;
                 onMtqContactDown: {
                     if(warmUp.visible && currentCorner == bottomRight.cornerID) {
+                        if(training && !cornerChecked){
+                            bottomRightArrow.rotation += 180;
+                        }
                         correctCornerTapped()
                     }
                 }
@@ -262,14 +262,14 @@ Rectangle {
         centerFeet.visible = false;
         centerButton.visible = true;
         corners.visible = true;
-        redArrow.visible = true;
+        topLeftArrow.visible = true;
         centerButton.state = warmUp.colors[0];
         currentCorner = 0;
         cornerChecked = false;
     }
 
     function endTraining(){
-        blueArrow.visible = false;
+        bottomRightArrow.visible = false;
         training = false;
         hudText.text = "Now try to repeat this\nas often as you can...";
         hudText.visible = true;

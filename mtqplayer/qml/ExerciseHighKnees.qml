@@ -44,9 +44,8 @@ Rectangle {
     FootButton {
         id: leftFoot
         type: 'left'
-        x: floor.width/2 - leftFoot.width - 200
+        x: floor.width/2 - leftFoot.width - 100
         y: floor.height/2
-        property bool tapped: false
         onMtqContactDown: {
             if(exerciseHighKnees.visible){
                 if(!exerciseHighKnees.hasStarted){
@@ -54,16 +53,10 @@ Rectangle {
                     exerciseHighKnees.hasStarted = true;
                 }
 
-                tapped = true;
-                if(!rightFoot.tapped && leftTurn){
+                if(leftTurn){
                     exerciseCounter++;
                     leftTurn = false;
                 }
-            }
-        }
-        onMtqContactUp: {
-            if(exerciseHighKnees.visible){
-                tapped = false;
             }
         }
     }
@@ -71,9 +64,8 @@ Rectangle {
     FootButton {
         id: rightFoot
         type: 'right'
-        x: floor.width/2 + 200
+        x: floor.width/2 + 100
         y: floor.height/2
-        property bool tapped: false
         onMtqContactDown: {
             if(exerciseHighKnees.visible){
                 if(!exerciseHighKnees.hasStarted){
@@ -81,16 +73,10 @@ Rectangle {
                     exerciseHighKnees.hasStarted = true;
                 }
 
-                tapped = true;
-                if(!leftFoot.tapped && !leftTurn){
+                if(!leftTurn){
                     exerciseCounter++;
                     leftTurn = true;
                 }
-            }
-        }
-        onMtqContactUp: {
-            if(exerciseHighKnees.visible){
-                tapped = false;
             }
         }
     }

@@ -12,7 +12,7 @@ Rectangle {
     property var exercisesToDo: []
     property var mainCategories: [["Make me sweat!", "makemesweat"], ["Workouts", workoutCategories], ["Single Exercises", singleExercises], ["Warm Up", "warmup"]]
     property var workoutCategories: [["Stretching", "stretching"], ["Cardio", "cardio"], ["BodyAttack", "bodyattack"], ["Random", "random"]]
-    property var singleExercises: [["Lunges", "lunges"], ["High Knees", "highknees"], ["Jumping Jacks", "jumpingjacks"], ["Literal Jumps", "literaljumps"]]
+    property var singleExercises: [["Lunges", "lunges"], ["High Knees", "highknees"], ["Jumping Jacks", "jumpingjacks"], ["Lateral Jumps", "lateraljumps"]]
 
     function startMenu() {
         if(selectionMenu.exercisesToDo.length > 0){
@@ -53,11 +53,11 @@ Rectangle {
     function startExercise(name){
         switch(name){
             case "makemesweat":
-                selectionMenu.exercisesToDo = ["warmup", "lunges", "literaljumps", "jumpingjacks", "highknees"];
+                selectionMenu.exercisesToDo = ["warmup", "lunges", "lateraljumps", "jumpingjacks", "highknees"];
                 startNextExercise();
                 break;
             case "stretching":
-                selectionMenu.exercisesToDo = ["literaljumps", "lunges"];
+                selectionMenu.exercisesToDo = ["lateraljumps", "lunges"];
                 startNextExercise();
                 break;
             case "cardio":
@@ -65,11 +65,11 @@ Rectangle {
                 startNextExercise();
                 break;
             case "bodyattack":
-                selectionMenu.exercisesToDo = ["lunges", "highknees", "literaljumps"];
+                selectionMenu.exercisesToDo = ["lunges", "highknees", "lateraljumps"];
                 startNextExercise();
                 break;
             case "random":
-                selectionMenu.exercisesToDo = suffle(["warmup", "lunges", "literaljumps", "jumpingjacks", "highknees"]);
+                selectionMenu.exercisesToDo = suffle(["warmup", "lunges", "lateraljumps", "jumpingjacks", "highknees"]);
                 startNextExercise();
                 break;
             case "lunges":
@@ -81,8 +81,8 @@ Rectangle {
             case "jumpingjacks":
                 exerciseJumpingJacks.start();
                 break;
-            case "literaljumps":
-                exerciseLiteralJumps.start();
+            case "lateraljumps":
+                exerciseLateralJumps.start();
                 break;
             case "warmup":
                 warmUp.restart();
