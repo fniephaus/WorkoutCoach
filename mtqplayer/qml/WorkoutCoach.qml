@@ -9,7 +9,7 @@ BaseWidget {
     property int rotation: 0
     property int offsetRotation: 0
     property var primaryFoot: 'right'
-    property bool debug: true
+    property bool debug: false
 
     WarmUp {
         id: warmUp
@@ -85,16 +85,16 @@ BaseWidget {
         
     }
     
-    onMtqContactMove: {
-        // rotation += 2;
-        if(event.foot == primaryFoot){
-            hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(event.rotation + offsetRotation/360 * 2*Math.PI);
-            hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(event.rotation + offsetRotation/360 * 2*Math.PI);
-            hudArea.rotation = event.rotation + offsetRotation;
-        }
-        moveRect.x = event.mappedCenter.x;
-        moveRect.y = event.mappedCenter.y;
-    }
+    // onMtqContactMove: {
+    //     // rotation += 2;
+    //     if(event.foot == primaryFoot){
+    //         hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(event.rotation + offsetRotation/360 * 2*Math.PI);
+    //         hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(event.rotation + offsetRotation/360 * 2*Math.PI);
+    //         hudArea.rotation = event.rotation + offsetRotation;
+    //     }
+    //     moveRect.x = event.mappedCenter.x;
+    //     moveRect.y = event.mappedCenter.y;
+    // }
 
     Rectangle {
         visible: floor.debug
