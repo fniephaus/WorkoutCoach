@@ -49,34 +49,25 @@ Rectangle {
         type: 'left'
         x: floor.width/2 - leftFootLiteralJumps.width - 600
         y: floor.height/2
-        property bool down: false
         visible: false
         onMtqContactDown: {
             if(exerciseLiteralJumps.visible){
-                down = true;
 
-                if(rightFootLiteralJumps.down || floor.debug){
-                    if(leftTurn){
-                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
-                            leftFootLiteralJumps.state = "crossed";
-                        }else{
-                            leftFootLiteralJumps.state = "normal";
-                            leftTurn = false;
-                            if(exerciseTimerLiteralJumps.running){
-                                exerciseCounter++;
-                            }
-                        }
+                if(leftTurn){
+                    if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                        leftFootLiteralJumps.state = "crossed";
                     }else{
-                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
-                            rightFootLiteralJumps.state = "crossed";
+                        leftFootLiteralJumps.state = "normal";
+                        leftTurn = false;
+                        if(exerciseTimerLiteralJumps.running){
+                            exerciseCounter++;
                         }
                     }
+                }else{
+                    if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                        rightFootLiteralJumps.state = "crossed";
+                    }
                 }
-            }
-        }
-        onMtqContactUp: {
-            if(exerciseLiteralJumps.visible){
-                down = false;
             }
         }
 
@@ -103,38 +94,29 @@ Rectangle {
         type: 'right'
         x: floor.width/2 + 600
         y: floor.height/2
-        property bool down: false
         onMtqContactDown: {
             if(exerciseLiteralJumps.visible){
-                down = true;
 
-                if(leftFootLiteralJumps.down || floor.debug){
-                    if(!hasStarted){
-                        exerciseTimerLiteralJumps.start();
-                        hasStarted = true;
-                        leftFootLiteralJumps.visible = true;
-                    }
-                    if(!leftTurn){
-                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
-                            rightFootLiteralJumps.state = "crossed";
-                        }else{
-                            rightFootLiteralJumps.state = "normal";
-                            leftTurn = true;
-                            if(exerciseTimerLiteralJumps.running){
-                                exerciseCounter++;
-                            }
-                        }
+                if(!hasStarted){
+                    exerciseTimerLiteralJumps.start();
+                    hasStarted = true;
+                    leftFootLiteralJumps.visible = true;
+                }
+                if(!leftTurn){
+                    if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                        rightFootLiteralJumps.state = "crossed";
                     }else{
-                        if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
-                            leftFootLiteralJumps.state = "crossed";
+                        rightFootLiteralJumps.state = "normal";
+                        leftTurn = true;
+                        if(exerciseTimerLiteralJumps.running){
+                            exerciseCounter++;
                         }
+                    }
+                }else{
+                    if(rightFootLiteralJumps.state == "normal" && leftFootLiteralJumps.state == "normal"){
+                        leftFootLiteralJumps.state = "crossed";
                     }
                 }
-            }
-        }
-        onMtqContactUp: {
-            if(exerciseLiteralJumps.visible){
-                down = false;
             }
         }
 
