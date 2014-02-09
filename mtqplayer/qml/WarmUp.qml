@@ -12,7 +12,7 @@ Rectangle {
     property int currentCorner: 0
     property bool cornerChecked: true
     property bool timeExpired: false
-    property int warmUpTime: 20000
+    property int warmUpTime: 30000
     property bool hasStarted: false
     property bool running: false
     property bool training: true
