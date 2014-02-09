@@ -96,22 +96,22 @@ Rectangle {
 
     Rectangle {
         id: centerButtonSelectionMenu
-        x: 1748
-        y: 900
-        width: 600
-        height: 600
+        width: 400
+        height: 400
+        x: (floor.width - width)/2
+        y: (floor.height - height)/2
         visible: false
         radius: width * 0.5
         color: "grey"
         Text {
             text: "back"
             id: textSelectionMenuBack
-            x: parent.width/2 - width/2
-            y: 200
+            x: (parent.width - width)/2
+            y: (parent.height - height)/2
             width: 200
-            height: 200
+            height: 100
             horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 100
+            font.pointSize: 70
             color: "white"
         }
         BaseWidget {
