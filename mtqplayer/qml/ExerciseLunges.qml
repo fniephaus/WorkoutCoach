@@ -7,16 +7,16 @@ Rectangle {
     height: 2400
     color: "#ff333333"
 
-    property int exerciseCounter: 8
-    property int exerciseDuration: 8
+    property int exerciseCounter: 4
+    property int exerciseDuration: 6
     property bool leftFootTurn: true
     property bool leftDown: false
     property bool rightDown: false
     property bool hasStarted: false
 
     function start(){
-        exerciseCounter = 8;
-        exerciseDuration = 8;
+        exerciseCounter = 4;
+        exerciseDuration = 6;
         leftFootTurn = true;
         hasStarted = false;
 
