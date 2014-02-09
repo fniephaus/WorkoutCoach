@@ -6,9 +6,7 @@ BaseWidget {
     width: 4096
     height: 2400
 
-    property int rotation: 0
     property int offsetRotation: 0
-    property var primaryFoot: 'right'
     property bool debug: false
 
     WarmUp {
@@ -86,8 +84,7 @@ BaseWidget {
     }
     
     // onMtqContactMove: {
-    //     // rotation += 2;
-    //     if(event.foot == primaryFoot){
+    //     if(event.foot == 'right'){
     //         hudArea.x = event.mappedCenter.x - hudArea.width/2 + hudArea.width/3 * Math.sin(event.rotation + offsetRotation/360 * 2*Math.PI);
     //         hudArea.y = event.mappedCenter.y - hudArea.height/2 - hudArea.width/3 * Math.cos(event.rotation + offsetRotation/360 * 2*Math.PI);
     //         hudArea.rotation = event.rotation + offsetRotation;
