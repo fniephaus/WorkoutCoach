@@ -34,30 +34,6 @@
 		c2.276,0.905,5.158-0.958,6.438-4.163c1.275-3.205,0.468-6.537-1.812-7.442C116.354,21.994,113.473,23.858,112.193,27.062z"/>
 	<path id="path3541-2-6-8-3" fill="#FFFFFF" d="M120.479,33.641c-1.562,2.5-1.394,5.424,0.385,6.533
 		c1.773,1.108,4.482-0.019,6.048-2.519c1.563-2.5,1.394-5.425-0.384-6.534C124.752,30.013,122.043,31.142,120.479,33.641z"/>
-	<text
-	   xml:space="preserve"
-	   style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#bcbec0;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
-	   x="24.788136"
-	   y="77.669487"
-	   id="text2998"
-	   sodipodi:linespacing="125%"><tspan
-	     sodipodi:role="line"
-	     id="tspan3000"
-	     x="24.788136"
-	     y="77.669487">L</tspan>
-	 </text>
-	<text
-	   xml:space="preserve"
-	   style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#bcbec0;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
-	   x="82.19606"
-	   y="77.669487"
-	   id="text2998-1"
-	   sodipodi:linespacing="125%"><tspan
-	     sodipodi:role="line"
-	     id="tspan3000-7"
-	     x="82.19606"
-	     y="77.669487">R</tspan>
-	 </text>
 </g>
 <g id="FootRight::white">
 <path id="path3304-7" fill="#FFFFFF" d="M65.021,57.021c-1.073,2.659-2.726,6.141-6.101,18.187
@@ -75,18 +51,6 @@
 	c2.276,0.905,5.158-0.958,6.438-4.163c1.274-3.205,0.468-6.537-1.812-7.442C66.354,15.994,63.473,17.858,62.193,21.062z"/>
 <path id="path3541-2-6-8-3" fill="#FFFFFF" d="M70.479,27.641c-1.562,2.5-1.394,5.424,0.385,6.533
 	c1.773,1.108,4.482-0.019,6.049-2.519c1.562-2.5,1.395-5.425-0.385-6.534C74.752,24.013,72.043,25.142,70.479,27.641z"/>
-	<text
-	   xml:space="preserve"
-	   style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#bcbec0;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
-	   x="31.788136"
-	   y="77.669487"
-	   id="text2998"
-	   sodipodi:linespacing="125%"><tspan
-	     sodipodi:role="line"
-	     id="tspan3000"
-	     x="31.788136"
-	     y="77.669487">R</tspan>
-	 </text>
 </g>
 <g id="FootLeft::white">
 <path id="path3304" fill="#FFFFFF" d="M35.981,57.99c1.076,2.658,2.725,6.142,6.1,18.186c2.156,7.697,3.252,20.823,5.682,28.333
@@ -105,17 +69,5 @@
 	L38.811,22.032z"/>
 <path id="path3541-2-6-8" fill="#FFFFFF" d="M30.526,28.61c1.564,2.5,1.394,5.424-0.382,6.533c-1.776,1.108-4.483-0.02-6.048-2.519
 	c-1.564-2.5-1.393-5.425,0.383-6.533C26.254,24.983,28.961,26.11,30.526,28.61z"/>
-	<text
-	   xml:space="preserve"
-	   style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#bcbec0;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
-	   x="44.788136"
-	   y="77.669487"
-	   id="text2998"
-	   sodipodi:linespacing="125%"><tspan
-	     sodipodi:role="line"
-	     id="tspan3000"
-	     x="44.788136"
-	     y="77.669487">L</tspan>
-	 </text>
 	</g>
 </svg>
