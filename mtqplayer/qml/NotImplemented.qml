@@ -7,7 +7,6 @@ Rectangle {
     height: 2400
     color: "#ff333333"
 
-
     Text {
         id: notImplementedText
         text: "This will be available soon!"
@@ -18,24 +17,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         font.pointSize: 200
         color: "white"
-    }
-
-
-    // FeetButton {
-    //     id: centerFeet
-    //     x: 1848
-    //     y: 1000
-    //     width: 400
-    //     height: 400
-    //     onMtqTapDown: {
-    //         if(notImplemented.visible){
-    //             notImplemented.visible = false;
-    //             selectionMenu.startMenu();
-    //         }
-    //     }
-    // }
-
-
-    
+    } 
 }
 

@@ -42,6 +42,20 @@ Rectangle {
         width: 400
         height: 400
         onMtqContactDown: startWarmUp()
+        Text {
+            x: 65
+            y: 120
+            text: "L"
+            font.pointSize: 100
+            color: "gray"
+        }
+        Text {
+            x: 50 + parent.width/2
+            y: 120
+            text: "R"
+            font.pointSize: 100
+            color: "gray"
+        }
     }
 
     Image {
@@ -239,7 +253,7 @@ Rectangle {
 
     Timer {
         id: warmUpTimer
-        property var callback: function(){console.log("emtpy callback")}
+        property var callback: function(){}
         interval: 1000
         onTriggered: {
             callback();
@@ -257,7 +271,7 @@ Rectangle {
     }
 
     function startTraining(){
-        console.log('startInstructions called');
+        // console.log('startInstructions called');
         hudText.visible = false;
         centerFeet.visible = false;
         centerButton.visible = true;
@@ -277,7 +291,7 @@ Rectangle {
     }
 
     function getReady(){
-        console.log('getReady called');
+        // console.log('getReady called');
         hudText.visible = true;
         hudText.text = "Get ready!";
         callDelayed(function(){startSpeedCourt()}, 2000);
@@ -285,7 +299,7 @@ Rectangle {
 
     function startSpeedCourt(){
         timeExpired = false;
-        console.log('startSpeedCourt called');
+        // console.log('startSpeedCourt called');
         hudText.visible = false;
 
         centerFeet.visible = false;
@@ -300,12 +314,12 @@ Rectangle {
 
     function endSpeedCourt(){
         warmUp.running = false;
-        console.log('endSpeedCourt called');
+        // console.log('endSpeedCourt called');
         timeExpired = true;
     }
 
     function warmUpDone() {
-        console.log("warmUpDone called");
+        // console.log("warmUpDone called");
         corners.visible = false;
         centerButton.visible = false;
         
@@ -315,7 +329,7 @@ Rectangle {
     }
 
     function startSelectionMenu(){
-        console.log('startSelectionMenu called');
+        // console.log('startSelectionMenu called');
         warmUp.visible = false;
         selectionMenu.startMenu();
     }
@@ -335,7 +349,7 @@ Rectangle {
             warmUpTimer.callback = callback;
             warmUpTimer.interval = interval;
             warmUpTimer.start();
-            console.log("Timer started (interval: " + interval + ")");
+            // console.log("Timer started (interval: " + interval + ")");
         }
     }
 

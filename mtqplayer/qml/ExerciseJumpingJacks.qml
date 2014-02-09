@@ -49,17 +49,6 @@ Rectangle {
         type: 'left'
         x: floor.width/2 - leftFootJumpingJacks.width - 300
         y: floor.height/2
-        property bool down: false
-        onMtqContactDown: {
-            if(exerciseJumpingJacks.visible){
-                down = true;
-            }
-        }
-        onMtqContactUp: {
-            if(exerciseJumpingJacks.visible){
-                down = false;
-            }
-        }
 
         states: [
             State {
@@ -75,6 +64,14 @@ Rectangle {
         transitions: Transition {
             NumberAnimation { properties: "x"; easing.type: Easing.InOutQuad; duration: 50; }
         }
+        
+        Text {
+            x: 75
+            y: 120
+            text: "L"
+            font.pointSize: 100
+            color: "gray"
+        }
     }
 
     FootButton {
@@ -82,32 +79,23 @@ Rectangle {
         type: 'right'
         x: floor.width/2 + 300
         y: floor.height/2
-        property bool down: false
         onMtqContactDown: {
             if(exerciseJumpingJacks.visible){
-                down = true;
 
-                if(leftFootJumpingJacks.down || floor.debug){
-                    if(!hasStarted){
-                        exerciseTimerJumpingJacks.start();
-                        hasStarted = true;
-                    }
-                    if(rightFootJumpingJacks.state == "close"){
-                        leftFootJumpingJacks.state = "wide";
-                        rightFootJumpingJacks.state = "wide";
-                    }else{
-                        leftFootJumpingJacks.state = "close";
-                        rightFootJumpingJacks.state = "close";
-                    }
-                    if(exerciseTimerJumpingJacks.running){
-                        exerciseCounter++;
-                    }
+                if(!hasStarted){
+                    exerciseTimerJumpingJacks.start();
+                    hasStarted = true;
                 }
-            }
-        }
-        onMtqContactUp: {
-            if(exerciseJumpingJacks.visible){
-                down = false;
+                if(rightFootJumpingJacks.state == "close"){
+                    leftFootJumpingJacks.state = "wide";
+                    rightFootJumpingJacks.state = "wide";
+                }else{
+                    leftFootJumpingJacks.state = "close";
+                    rightFootJumpingJacks.state = "close";
+                }
+                if(exerciseTimerJumpingJacks.running){
+                    exerciseCounter++;
+                }
             }
         }
         
@@ -124,6 +112,14 @@ Rectangle {
 
         transitions: Transition {
             NumberAnimation { properties: "x"; easing.type: Easing.InOutQuad; duration: 50; }
+        }
+
+        Text {
+            x: 35
+            y: 120
+            text: "R"
+            font.pointSize: 100
+            color: "gray"
         }
     }
 
@@ -149,7 +145,7 @@ Rectangle {
         id: returnToMenuJumpingJacks
         interval: 6000
         onTriggered: {
-            console.log('returnToMenuJumpingJacks triggered');
+            // console.log('returnToMenuJumpingJacks triggered');
             hudText.visible = false;
             exerciseJumpingJacks.visible = false;
             selectionMenu.startMenu();

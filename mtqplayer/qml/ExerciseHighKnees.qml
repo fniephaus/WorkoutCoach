@@ -59,6 +59,14 @@ Rectangle {
                 }
             }
         }
+        
+        Text {
+            x: 75
+            y: 120
+            text: "L"
+            font.pointSize: 100
+            color: "gray"
+        }
     }
 
     FootButton {
@@ -78,6 +86,14 @@ Rectangle {
                     leftTurn = true;
                 }
             }
+        }
+
+        Text {
+            x: 35
+            y: 120
+            text: "R"
+            font.pointSize: 100
+            color: "gray"
         }
     }
 
@@ -103,7 +119,7 @@ Rectangle {
         id: returnToMenuHighKnees
         interval: 6000
         onTriggered: {
-            console.log('returnToMenuHighKnees triggered');
+            // console.log('returnToMenuHighKnees triggered');
             hudText.visible = false;
             exerciseHighKnees.visible = false;
             selectionMenu.startMenu();

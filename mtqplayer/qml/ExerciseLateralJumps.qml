@@ -87,6 +87,14 @@ Rectangle {
         transitions: Transition {
             NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad; duration: 100; }
         }
+        
+        Text {
+            x: 75
+            y: 120
+            text: "L"
+            font.pointSize: 100
+            color: "gray"
+        }
     }
 
     FootButton {
@@ -136,6 +144,14 @@ Rectangle {
         transitions: Transition {
             NumberAnimation { properties: "x,y"; easing.type: Easing.InOutQuad; duration: 100; }
         }
+
+        Text {
+            x: 35
+            y: 120
+            text: "R"
+            font.pointSize: 100
+            color: "gray"
+        }
     }
 
     Timer {
@@ -160,7 +176,7 @@ Rectangle {
         id: returnToMenuLiteralJumps
         interval: 6000
         onTriggered: {
-            console.log('returnToMenuLiteralJumps triggered');
+            // console.log('returnToMenuLiteralJumps triggered');
             hudText.visible = false;
             exerciseLiteralJumps.visible = false;
             selectionMenu.startMenu();

@@ -19,7 +19,7 @@ Rectangle {
             hudText.visible = false;
             startNextExercise();
         }else{
-            console.log('startMenu called');
+            // console.log('startMenu called');
             selectionMenu.visible = true;
             hudText.text = "Well done!\nNow make your selection!";
             setFields(mainCategories, false);
@@ -253,7 +253,7 @@ Rectangle {
         id: selectionIntro
         interval: 2000
         onTriggered: {
-            console.log('selectionIntro triggered');
+            // console.log('selectionIntro triggered');
             hudText.visible = false;
         }
     }
@@ -262,7 +262,7 @@ Rectangle {
         id: notImplementedTimer
         interval: 4000
         onTriggered: {
-            console.log('notImplementedTimer triggered');
+            // console.log('notImplementedTimer triggered');
             notImplemented.visible = false;
             selectionMenu.startMenu();
         }
